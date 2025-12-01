@@ -85,12 +85,13 @@ ___
 해당 프로젝트의 ui 라이브러리는 `shadcn/ui` 라이브러리를 사용중입니다.
 
 https://ui.shadcn.com/
-___
+
 그리고 컴포넌트를 확인하려면 데모와 코드구현등 제공해주는 페이지입니다.
 
 https://ui.shadcn.com/docs/components
 
 ## 컴포넌트 추가
+
 ### 설치
 원하는 컴포넌트가 있을 경우... 예를 들어 `Card` 컴포넌트 설치 시나리오입니다.
 
@@ -103,17 +104,7 @@ npx shadcn@latest add 컴포넌트명
 ### 설치된 위치
 추가한 컴포넌트는 프로젝트 루트 기준 `src/components/ui/` 디렉토리에 추가됩니다.
 ```scss
-co-op-front. // 루트 
-├── README.md
-├── components.json
-├── eslint.config.js
-├── index.html
-├── package-lock.json
-├── package.json
-├── pnpm-lock.yaml
-├── postcss.config.js
-├── public
-│   └── vite.svg
+co-op-front. // 루트
 ├── src
 │   ├── App.scss
 │   ├── App.tsx
@@ -125,17 +116,13 @@ co-op-front. // 루트
 │   │   │   ├── Hero
 │   │   │   └── signup
 │   │   │       └── signup-form.tsx
-│   │   └── ui !!!︎ npx shadcn@latest add... 를 통해 추가할 위치 !!!
-│   │       ├── button.tsx
+│   │   └── ui  <<<== [!!!︎ npx shadcn@latest add... 를 통해 추가할 위치 !!!]
+│   │       ├── button.tsx  
 │   │       ├── card.tsx
 │   │       ├── field.tsx
 │   │       ├── input.tsx
 │   │       ├── label.tsx
 │   │       └── separator.tsx
-│   ├── hooks
-│   ├── lib
-│   │   ├── typography.ts
-│   │   └── utils.ts
 │   ├── main.tsx
 │   ├── pages
 │   │   └── Example
@@ -147,10 +134,6 @@ co-op-front. // 루트
 │   │   └── index.scss
 │   ├── types
 │   └── utils
-├── tailwind.config.ts
-├── tsconfig.app.json
-├── tsconfig.json
-├── tsconfig.node.json
-└── vite.config.ts
+...
 
 ```
