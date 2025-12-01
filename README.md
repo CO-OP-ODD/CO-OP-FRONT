@@ -15,9 +15,13 @@ Currently, two official plugins are available:
 
 The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
+`리액트 컴파일러의 경우 dev & build 성능 충돌로인해 비활성화 상태입니다.`
+`추가할경우 해당 문서를 참고해주세요` [설치](https://react.dev/learn/react-compiler/installation)
+
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+`혹시나 배포할 애플리케이션을 개발중일 경우, 다음 설정으로 설정하시는 것을 추천 드립니다.`
 
 ```js
 export default defineConfig([
@@ -75,6 +79,7 @@ export default defineConfig([
   },
 ])
 ```
+___
 # `shadcn/ui` 라이브러리 사용 안내
 
 해당 프로젝트의 ui 라이브러리는 `shadcn/ui` 라이브러리를 사용중입니다.
@@ -87,7 +92,7 @@ https://ui.shadcn.com/docs/components
 
 ## 컴포넌트 추가
 ### 설치
-원하는 컴포넌트가 있을 경우... 예를 들어 `Card` 컴포넌트를 설치 시나리오입니다.
+원하는 컴포넌트가 있을 경우... 예를 들어 `Card` 컴포넌트 설치 시나리오입니다.
 
 - 해당 컴포넌트가 존재하는지 검색.
 - Installation 영역에서 제공하는 <b>CLI</b> 방식으로 추가. 
