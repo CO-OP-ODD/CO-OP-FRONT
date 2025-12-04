@@ -1,11 +1,12 @@
 import './App.scss'
-import {SignupForm} from "@/components/template/signup-form";
+import ProductSkeletonPage from "@/pages/ProductSkeletonPage";
 
 function App() {
 
   return (
     <>
-      <SignupForm/>
+      <ProductSkeletonPage/>
+
     </>
   )
 }
