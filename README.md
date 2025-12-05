@@ -200,7 +200,7 @@ ___
     }
 ```
 `vite.config.ts`
-```json
+```ts
 /* Path Aliases */
     resolve: {
         alias: {
