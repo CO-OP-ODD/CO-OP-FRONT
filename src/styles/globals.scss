@@ -1,3 +1,6 @@
+@use "./variables" as vars;
+@use "./mixins" as mixins;
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

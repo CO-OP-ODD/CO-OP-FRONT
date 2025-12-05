@@ -99,7 +99,8 @@ npx shadcn@latest add 컴포넌트명
 #### 설치된 위치
 추가한 컴포넌트는 프로젝트 루트 기준 `src/components/ui/` 디렉토리에 추가됩니다.
 ```
-co-op-front. // 루트
+CO-OP-FRONT
+. 
 ├── src
 │   ├── App.scss
 │   ├── App.tsx
@@ -112,23 +113,106 @@ co-op-front. // 루트
 │   │   │   └── signup
 │   │   │       └── signup-form.tsx
 │   │   └── ui  <<<== [!!!︎ npx shadcn@latest add... 를 통해 추가할 위치 !!!]
-│   │       ├── button.tsx  
+...
+기타 등등 디렉토리
+```
+
+## 주의사항
+무슨일이 있더라도 __절대로 절대 `./src/components/ui` 와 `./src/components/common` 디렉토리등__
+자신이 작업하는 디렉토리만 수정하도록 합시다.
+
+## 현재 등록된 Aliases 목록
+경로를 쉽게 참조할 수 있는 목록있니다.
+필요시 문의해주세요!
+
+```shell
+CO-OP-FRONT 
+.
+├── src
+│   ├── assets
+│   │   └── react.svg
+│   ├── components
+│   │   ├── common
+│   │   ├── icons
+│   │   │   └── index.ts
+│   │   ├── reactbits
+│   │   │   └── SplitText.tsx
+│   │   ├── template
+│   │   │   └── signup-form.tsx
+│   │   └── ui
+│   │       ├── badge.tsx
+│   │       ├── button.tsx
 │   │       ├── card.tsx
 │   │       ├── field.tsx
 │   │       ├── input.tsx
 │   │       ├── label.tsx
-│   │       └── separator.tsx
-│   ├── main.tsx
+│   │       ├── navigation-menu.tsx
+│   │       ├── select.tsx
+│   │       ├── separator.tsx
+│   │       └── skeleton.tsx
+│   ├── data
+│   ├── hooks
+│   ├── lib
+│   │   └── utils.ts
 │   ├── pages
-│   │   └── Example
-│   │       ├── Example.scss
-│   │       └── example-Page.tsx
+│   │   └── hero
+│   │       ├── hero.scss
+│   │       └── hero.tsx
 │   ├── styles
 │   │   ├── _mixins.scss
 │   │   ├── _variables.scss
-│   │   └── index.scss
-│   ├── types
-│   └── utils
+│   │   └── globals.scss
+│   └── types
 ...
 
+```
+
+### Aliases 목록 및 사용법
+`@/...` : `./src` 부터 참조 시작...
+즉 `./src` 는 `@/` 로 치환됩니다.
+___
+`프로젝트 내에 있지만 너무나 깊은 곳에 있는 위치 폴더...` 에서 `components/common/...` 에 있는 디렉토리에 있는 컴포넌트를 불러올 경우...
+
+기존방식: `import {...} from "../../../../components/common/...`;
+
+별칭방식: `import {...} from "@/commmon/...`;
+
+위처럼 간단히 불러올 수 있습니다.
+___
+**`tsconfig.app.json`**
+```json
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*" : ["./src/components/*"],
+      "@/components/*" : ["./src/components/*"],
+      "@types/*" : ["./src/types/*"],
+      "@data/*": ["./src/data/*"],
+      "@libs/*": ["./src/lib/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@icons/*": ["./src/components/icons/*"],
+      "@templates/*": ["./src/components/templates/*"],
+      "@pages/*": ["./src/components/pages/*"],
+    }
+```
+`vite.config.ts`
+```json
+/* Path Aliases */
+    resolve: {
+        alias: {
+            "@": path.resolve(__dirname, "./src"),
+            "@styles": path.resolve(__dirname, "./src/styles"),
+            "@assets": path.resolve(__dirname, "./src/assets"),
+            "@components": path.resolve(__dirname, "./src/components"),
+            "@types": path.resolve(__dirname, "./src/types"),
+            "@data": path.resolve(__dirname, "./src/data"),
+            "@libs": path.resolve(__dirname, "./src/libs"),
+            "@hooks": path.resolve(__dirname, "./src/hooks"),
+            "@icons": path.resolve(__dirname, "./src/components/icons"),
+            "@templates": path.resolve(__dirname, "./src/components/templates"),
+            "@pages": path.resolve(__dirname, "./src/components/pages"),
+        }
+    }
 ```

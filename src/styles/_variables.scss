@@ -1,0 +1,44 @@
+// _variables.scss
+
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-laptop: 1024px;
+$breakpoint-desktop: 1440px;
+
+/* $container-size-...
+  max-width:... {
+    case mobile: 100%
+    case tablet: 100%
+    case desktop: 996px
+    case 2k: 1276px
+  }
+*/
+$container-size-mobile: 100%;
+$container-size-tablet: 100%;
+$container-size-laptop: 996px;
+$container-size-desktop: 1276px;
+
+
+$view-size-mobile: (
+  padding-top: 32px,
+  padding-bottom: 64px
+);
+
+$view-size-tablet: (
+  padding-top: 88px,
+  padding-bottom: 72px
+);
+
+$view-size-laptop:(
+  padding-top: 96px,
+  padding-bottom: 80px
+);
+
+$view-size-desktop: (
+  padding-top: 144px,
+  padding-bottom: 96px
+);
+
+
+
+
