@@ -1,7 +1,8 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import { IoSearchCircleSharp } from "react-icons/io5";
-import { IoMdHome } from "react-icons/io";
+import { IoMdSearch, IoMdHome } from "react-icons/io";
 import {
   Select,
   SelectContent,
@@ -10,7 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -21,17 +21,27 @@ import {
 } from "@/components/ui/breadcrumb";
 
 const categoryFilters = [
+  "전체",
   "적용유형",
   "착용방식",
   "Connectors",
   "오디오소스",
-  "정렬기준",
-];
+] as const;
 
 export default function ProductSkeletonPage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate("/products", { replace: true });
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-16 pt-10">
+        {/* Breadcrumb - ProductPage와 동일 */}
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -49,110 +59,109 @@ export default function ProductSkeletonPage() {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        {/* 상단 헤더 */}
-        <header className="flex items-center justify-between">
+
+        {/* 상단 헤더 - className 통일 */}
+        <header className="flex items-center justify-between pb-4 border-b border-b-[#ECEBF0]">
           <div className="space-y-1">
-            <h1 className="text-2xl font-semibold tracking-tight">제품</h1>
+            <h1 className="text-[3.125rem] font-semibold tracking-tight pt-[1.375rem]">
+              제품
+            </h1>
           </div>
         </header>
 
-        {/* 카테고리 필터 */}
+        {/* 카테고리 필터 - 구조와 정렬 ProductPage와 동일 */}
         <section className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-medium text-muted-foreground">
+          <span className="text-[0.8125rem] text-[#222] font-medium text-muted-foreground">
             필터 :
           </span>
-          <IoSearchCircleSharp size="1.5rem" color="#ccc" />
+
+          {/* 검색 아이콘 버튼 */}
+          <button
+            type="button"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f3f3f3] cursor-default"
+          >
+            <IoMdSearch className="text-[#ccc]" size="1.1em" />
+          </button>
+
+          {/* 카테고리 버튼 스켈레톤 */}
           {categoryFilters.map((label, idx) => (
             <button
               key={label}
-              style={{
-                ...(idx === categoryFilters.length - 1 && {
-                  marginLeft: "auto",
-                }),
-                // 다른 공통 스타일들
-              }}
+              type="button"
               className={cn(
-                "rounded-full border text-xs",
-                "bg-card/60 text-muted-foreground",
-                "hover:bg-card transition-colors"
+                "rounded-full border px-[0.7rem] py-[0.5rem] text-[0.8125rem]",
+                "bg-[#ECEBF0] text-[#222]"
               )}
             >
               <Skeleton
                 className={cn(
                   "h-3 w-12 rounded-full",
-                  idx === 0 && "bg-primary/40"
+                  idx === 0 && "w-10" // '전체'는 조금 더 짧게
                 )}
               />
             </button>
           ))}
-        </section>
 
-        {/* 상단 메인 영역 */}
-        <section className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] items-stretch">
-          {/* 왼쪽 큰 카드 (카드 전체가 skeleton 느낌) */}
-          <div className="rounded-2xl border bg-card/70 overflow-hidden flex flex-col">
-            <div className="overflow-hidden rounded-2xl">
-              {/* 상단 이미지 영역 */}
-              <Skeleton className="aspect-[4/3] w-full rounded-none" />
-
-              {/* 텍스트 스켈레톤 */}
-              <div className="space-y-3 p-6">
-                <Skeleton className="h-3 w-16" />
-                <Skeleton className="h-5 w-40" />
-                <Skeleton className="h-3 w-3/4" />
-                <Skeleton className="h-3 w-1/2" />
-              </div>
-            </div>
-          </div>
-
-          {/* 오른쪽 컬럼 */}
-          <div className="flex h-full flex-col gap-4">
-            {/* 위 */}
-            <div className="flex-1 rounded-2xl border bg-card/70 flex flex-col">
-              <Skeleton className="aspect-[4/3] w-full h-full rounded-xl " />
-            </div>
-
-            {/* 아래 */}
-            <div className="flex-1 rounded-2xl border bg-card/70 flex flex-col">
-              <Skeleton className="aspect-[4/3] w-full h-full rounded-xl" />
-            </div>
+          {/* 정렬 기준 - 오른쪽 끝 ml-auto 구조 같게 */}
+          <div className="ml-auto">
+            <Select>
+              <SelectTrigger className="w-[100px] rounded-full">
+                <SelectValue placeholder="정렬 기준" />
+              </SelectTrigger>
+              <SelectContent side="bottom" align="center" sideOffset={4}>
+                <SelectGroup>
+                  <SelectItem value="name">이름순</SelectItem>
+                  <SelectItem value="date">날짜순</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
         </section>
 
-        {/* 하단 그리드 카드들 */}
-        <section className="space-y-3">
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 12 }).map((_, i) => (
+        {/* 상단 메인 - 같은 grid 구조 + highlight 카드 느낌만 스켈레톤으로 */}
+        <section>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 3 }).map((_, index) => (
               <div
-                key={i}
-                className="overflow-hidden rounded-2xl border bg-card/70"
+                key={index}
+                className={cn(
+                  "js-product-card overflow-hidden rounded-2xl border bg-card/70",
+                  index === 0 && "lg:col-span-2 lg:row-span-2"
+                )}
               >
-                {/* 정사각형 썸네일 */}
                 <Skeleton className="aspect-square w-full" />
               </div>
             ))}
           </div>
         </section>
 
-        {/* 페이지네이션 영역 */}
-        <div className="product-pagination flex flex-col items-center gap-3 py-10">
-          {/* 위: 현재 페이지 번호 */}
+        {/* 하단 상품 영역 - 클래스 그대로 복사 */}
+        <section className="space-y-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <div
+                key={i}
+                className="overflow-hidden rounded-2xl border bg-card/70"
+              >
+                <Skeleton className="aspect-square w-full" />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 페이지네이션 - ProductPage와 동일 구조 */}
+        <div className="product-pagination flex flex-col items-center gap-8 py-10">
           <button className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-medium">
             1
           </button>
 
-          {/* 아래: 페이지당 상품 수 */}
           <div className="flex items-center gap-2 text-xs sm:text-sm">
             <span className="text-muted-foreground">페이지당 상품 수</span>
             <Select>
               <SelectTrigger className="w-[60px] rounded-2xl">
                 <SelectValue placeholder="12" />
               </SelectTrigger>
-              <SelectContent
-                side="bottom" // 아래쪽으로
-                align="center" // 가운데 정렬
-                sideOffset={4} // 트리거와의 간격
-              >
+              <SelectContent side="bottom" align="center" sideOffset={4}>
                 <SelectGroup>
                   <SelectItem value="12">12</SelectItem>
                   <SelectItem value="24">24</SelectItem>
