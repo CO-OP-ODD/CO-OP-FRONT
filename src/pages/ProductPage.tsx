@@ -1,8 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useLayoutEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import { PRODUCTS, type Product } from "@/data/products";
 import { cn } from "@/lib/utils";
-import { IoSearchCircleSharp } from "react-icons/io5";
-import { IoMdHome } from "react-icons/io";
+import { IoMdSearch, IoMdHome } from "react-icons/io";
 import {
   Select,
   SelectContent,
@@ -20,20 +22,26 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const categoryFilters = [
   "전체",
   "적용유형",
   "착용방식",
   "Connectors",
   "오디오소스",
-  "정렬기준",
-];
+] as const;
 
+// categoryFilters 배열에서 요소 타입만 뽑아서 union 타입으로 만들음 (number:배열의 값 타입을 뽑는 문법)
+type Category = (typeof categoryFilters)[number];
+
+// ProductImageOverlayCard 컴포넌트가 받을 프롭스 정의해두기
 type ImageCardProps = {
   product: Product;
   aspectClass?: string;
 };
 
+// 각 상품의 정보 product 으로 받고 aspectClass에 기본값 "aspect-square"으로 지정해둠
 function ProductImageOverlayCard({
   product,
   aspectClass = "aspect-square",
@@ -45,7 +53,7 @@ function ProductImageOverlayCard({
         aspectClass
       )}
     >
-      {/* 이미지 */}
+      {/* 이미지 => product 프롭스로 넘어온 데이터 사용 */}
       <img
         src={product.thumbnail}
         alt={product.name}
@@ -56,7 +64,7 @@ function ProductImageOverlayCard({
         "
       />
 
-      {/* 뱃지 */}
+      {/* 뱃지 => product.badges 프롭스가 있을 때 사용 */}
       {product.badges && product.badges.length > 0 && (
         <div
           className="
@@ -86,16 +94,16 @@ function ProductImageOverlayCard({
         </div>
       )}
 
-      {/* 상품명 */}
+      {/* 상품명 => product.name */}
       <div
         className="
           pointer-events-none 
           absolute bottom-3 left-3
           px-3 py-1                         
           text-sm font-semibold text-foreground
-          opacity-0 translate-y-2
+          opacity-1 translate-y-2
           transition-all duration-300
-          group-hover:opacity-100 group-hover:translate-y-0
+          group-hover:text-[#B70A09]
         "
       >
         {product.name}
@@ -104,25 +112,81 @@ function ProductImageOverlayCard({
   );
 }
 
+// 프롭스 타입을 인라인으로 바로 적어서 시작
+function ProductCardShell({
+  children,
+  highlight,
+}: {
+  children: React.ReactNode; // ReactNode: 하위에 어떤 JSX든 받도록 설정 (카드, 텍스트, 이미지, 뭐든 마음대로 허용하는 타입 사용)
+  highlight?: boolean; // 강조 카드인지 여부 (선택적 boolean 프롭스)
+}) {
+  return (
+    <div
+      className={cn(
+        "js-product-card",
+        "overflow-hidden rounded-2xl border bg-card/70",
+        highlight && "lg:col-span-2 lg:row-span-2" // highlight가 true이면 상단의 큰 카드 레이아웃 적용하기
+      )}
+    >
+      {/* children을 그대로 렌더링해서 재사용 가능한 카드 컴포넌트로 사용 */}
+      {children}
+    </div>
+  );
+}
+
 export default function ProductPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  // selectedCategory =>  현재 선택된 카테고리 (Category 타입을 사용해서 잘못된 문자열을 막음)
+  const [selectedCategory, setSelectedCategory] = useState<Category>("전체");
+  // perPage => 페이지당 보여줄 상품 개수
   const [perPage, setPerPage] = useState<number>(12);
+  // currentPage => 현재 페이지 번호
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const cards = gsap.utils.toArray<HTMLElement>(".js-product-card");
+
+      cards.forEach((card, index) => {
+        // 한 줄에 3개라고 가정하고, 왼쪽→오른쪽 순차 딜레이
+        const delay = (index % 3) * 0.12; // 3은 컬럼 개수, 0.12는 시간 간격
+
+        gsap.fromTo(
+          card,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            delay,
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    });
+
+    return () => ctx.revert();
+  }, [selectedCategory, perPage, currentPage]);
 
   // 1. 카테고리 필터링
   const filteredProducts = useMemo(() => {
+    // "전체" 또는 아무 값도 없으면 전체 상품 반환
     if (!selectedCategory || selectedCategory === "전체") {
-      // selectedCategory가 ""(빈값)이거나 "전체"일 때
       return PRODUCTS;
     }
+    // 그렇지 않으면 카테고리 일치하는 상품만 필터링
     return PRODUCTS.filter((p) => p.category === selectedCategory);
   }, [selectedCategory]);
 
   // 2. 페이지네이션
-  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / perPage));
-  const safePage = Math.min(currentPage, totalPages);
-  const start = (safePage - 1) * perPage;
-  const pagedProducts = filteredProducts.slice(start, start + perPage);
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / perPage)); // 전체 페이지 수 = (필터링된 상품 개수 / perPage)를 올림
+  const safePage = Math.min(currentPage, totalPages); // 현재 페이지가 totalPages 보다 커질 수 있으니 안전하게 보정
+  const start = (safePage - 1) * perPage; // 현재 페이지에서 잘라낼 시작 인덱스
+  const pagedProducts = filteredProducts.slice(start, start + perPage); // 실제로 화면에 보여줄 상품 슬라이스
 
   // 상단 메인 영역용 3개 + 하단 그리드용 나머지
   const topProducts = pagedProducts.slice(0, 3);
@@ -131,7 +195,6 @@ export default function ProductPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-16 pt-10">
-        {/* Breadcrumb - Skeleton과 동일 구조 */}
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -164,54 +227,60 @@ export default function ProductPage() {
           <span className="text-[0.8125rem] text-[#222] font-medium text-muted-foreground">
             필터 :
           </span>
-          <IoSearchCircleSharp size="1.5rem" color="#ccc" />
 
-          {categoryFilters.map((label, idx) => {
-            const isLast = idx === categoryFilters.length - 1;
-            const isSort = label === "정렬기준";
-            const isActive = !isSort && label === selectedCategory;
+          {/* 검색 아이콘 */}
+          <button
+            type="button"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f3f3f3] hover:bg-[#e2e2e2] cursor-pointer"
+          >
+            <IoMdSearch className="text-[#666]" size="1.1em" />
+          </button>
+
+          {/* 카테고리 필터 버튼들 */}
+          {categoryFilters.map((label) => {
+            const isActive = label === selectedCategory;
 
             return (
               <button
                 key={label}
-                style={isLast ? { marginLeft: "auto" } : undefined}
                 type="button"
                 onClick={() => {
-                  if (isSort) return;
                   setSelectedCategory(label);
                   setCurrentPage(1);
                 }}
                 className={cn(
-                  "rounded-full border",
-                  "px-[0.7rem] py-[0.5rem]",
-                  "text-[0.8125rem]",
+                  "rounded-full border px-[0.7rem] py-[0.5rem] text-[0.8125rem]",
                   isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-card/60 text-[#222] hover:bg-[#B70A09] hover:text-white transition-colors"
+                    ? "bg-[#B70A09] text-primary-foreground"
+                    : "bg-[#ECEBF0] text-[#222] hover:bg-[#B70A09] hover:text-white transition-colors"
                 )}
               >
                 {label}
               </button>
             );
           })}
+
+          {/* 정렬 기준 (오른쪽 끝) */}
+          <div className="ml-auto">
+            <Select>
+              <SelectTrigger className="w-[100px] rounded-full">
+                <SelectValue placeholder="정렬 기준" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="name">이름순</SelectItem>
+                <SelectItem value="date">날짜순</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </section>
 
         {/* 상단 메인 */}
         <section>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {topProducts.map((p, index) => (
-              <div
-                key={p.id}
-                className={cn(
-                  "overflow-hidden rounded-2xl border bg-card/70",
-                  index === 0 && "lg:col-span-2 lg:row-span-2"
-                )}
-              >
-                <ProductImageOverlayCard
-                  product={p}
-                  aspectClass="aspect-square"
-                />
-              </div>
+              <ProductCardShell key={p.id} highlight={index === 0}>
+                <ProductImageOverlayCard product={p} />
+              </ProductCardShell>
             ))}
           </div>
         </section>
@@ -220,21 +289,15 @@ export default function ProductPage() {
         <section className="space-y-3">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {gridProducts.map((p) => (
-              <div
-                key={p.id}
-                className="overflow-hidden rounded-2xl border bg-card/70"
-              >
-                <ProductImageOverlayCard
-                  product={p}
-                  aspectClass="aspect-square"
-                />
-              </div>
+              <ProductCardShell key={p.id}>
+                <ProductImageOverlayCard product={p} />
+              </ProductCardShell>
             ))}
           </div>
         </section>
 
         {/* 페이지네이션 */}
-        <div className="product-pagination flex flex-col items-center gap-3 py-10">
+        <div className="product-pagination flex flex-col items-center gap-8 py-10">
           {/* 현재 페이지 번호 */}
           <button className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-medium">
             {safePage}
