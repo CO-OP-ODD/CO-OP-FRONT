@@ -127,7 +127,7 @@ CO-OP-FRONT
 경로를 쉽게 참조할 수 있는 목록있니다.
 필요시 문의해주세요!
 
-```shell
+```
 CO-OP-FRONT 
 .
 ├── src

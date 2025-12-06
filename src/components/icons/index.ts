@@ -10,4 +10,5 @@ export {
     SiFigma
 } from 'react-icons/si';
 
+
 export type {IconType} from 'react-icons';
