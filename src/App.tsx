@@ -5,13 +5,14 @@ import React, { useState } from "react";
 import { NavigationPills } from "@/pages/history/NavigationPills";
 import { TimelineItem } from "@/pages/history/TimelineItem";
 import { TIMELINE_DATA } from "@/pages/history/constants";
-import { NavItem } from "@/pages/history/types";
+import { NavItem } from "@/pages/history/navItems";
+
 
 export default function App() {
   const [activeItem, setActiveItem] = useState<NavItem>(NavItem.HISTORY);
 
   return (
-    <div className="px-6 py-12 max-w-4xl mx-auto">
+    <div className="px-6 py-12 max-w-6xl mx-auto">
 
       <NavigationPills activeItem={activeItem} onSelect={setActiveItem} />
 

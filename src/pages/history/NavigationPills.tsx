@@ -1,6 +1,7 @@
 // src/pages/history/NavigationPills.tsx
 import React from "react";
-import { NavItem } from "./types";
+import { NavItem } from "./navItems";
+
 
 interface NavigationPillsProps {
   activeItem: NavItem;
