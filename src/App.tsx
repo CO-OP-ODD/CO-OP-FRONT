@@ -1,13 +1,13 @@
 import './App.scss'
-import {SignupForm} from "@/components/template/signup-form";
 
-function App() {
+import NavigationPills from '@/pages/history/NavigationPills';
+import TimelineItem from '@/pages/history/TimelineItem';
 
+export default function App() {
   return (
-    <>
-      <SignupForm/>
-    </>
-  )
+    <div>
+      <NavigationPills />
+      <TimelineItem />
+    </div>
+  );
 }
-
-export default App
