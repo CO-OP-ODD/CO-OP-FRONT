@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { HeaderTab} from './types';
+import React from 'react';
+// import { HeaderTab} from './types';
 import type { NewsItem } from './types';
 
 const NEWS_ITEMS: NewsItem[] = [
@@ -64,9 +64,7 @@ const NewsRoom: React.FC = () => {
 
   return (
     
-    <div className="px-6 py-12 font-sans text-gray-900">
-      {/* Page Title */}
-      <h1 className="text-5xl md:text-6xl font-bold mb-16 tracking-tight">News Room</h1>
+    <div className="py-12 font-sans text-gray-900">
 
       {/* Hero Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-32 items-start">

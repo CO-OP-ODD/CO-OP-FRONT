@@ -14,6 +14,7 @@ export const NavigationPills: React.FC<NavigationPillsProps> = ({
   const items = [NavItem.ABOUT, NavItem.HISTORY, NavItem.NEWSROOM];
 
   return (
+    
     <div className="flex flex-wrap gap-3 mb-12">
       {items.map((item) => (
         <button
