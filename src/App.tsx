@@ -1,12 +1,11 @@
-// src/App.tsx
 import "./App.scss";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { NavigationPills } from "@/pages/history/NavigationPills";
-import { TimelineItem } from "@/pages/history/TimelineItem";
-import { TIMELINE_DATA } from "@/pages/history/constants";
+import { HistoryItem } from "@/pages/history/HistoryItem";
+import { HISTORY_DATA } from "@/pages/history/constants";
 import { NavItem } from "@/pages/history/navItems";
-
+import NewsRoom from "@/pages/newsroom/NewsRoom";
 
 export default function App() {
   const [activeItem, setActiveItem] = useState<NavItem>(NavItem.HISTORY);
@@ -16,13 +15,19 @@ export default function App() {
 
       <NavigationPills activeItem={activeItem} onSelect={setActiveItem} />
 
-      {activeItem === NavItem.HISTORY ? (
+      {activeItem === NavItem.HISTORY && (
         <div>
-          {TIMELINE_DATA.map((entry) => (
-            <TimelineItem key={entry.id} entry={entry} />
+          {HISTORY_DATA.map((entry) => (
+            <HistoryItem key={entry.id} entry={entry} />
           ))}
         </div>
-      ) : (
+      )}
+
+      {activeItem === NavItem.NEWSROOM && (
+        <NewsRoom />  // ← 기존 뉴스룸 컴포넌트 바로 렌더링
+      )}
+
+      {activeItem !== NavItem.HISTORY && activeItem !== NavItem.NEWSROOM && (
         <p className="text-gray-500 text-center mt-24">
           This section is not implemented yet.
         </p>

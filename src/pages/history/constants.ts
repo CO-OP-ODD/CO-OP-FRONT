@@ -1,4 +1,4 @@
-import type { TimelineEntry } from './types';
+import type { HistoryEntry } from './types';
 
 
 export const HEADER_TITLE = "Our History";
@@ -6,7 +6,7 @@ export const HEADER_TITLE = "Our History";
 export const HEADER_DESCRIPTION = `Sennheiser는 현재의 Sennheiser를 정의하는 우수성과 발견에 대한 열정으로 설립되었습니다. 당사의 놀라운 여정은 1945년 하노버 근처의 한 농가에서 첫 번째 마이크를 개발하며 시작되었습니다. 80여 년이 지난 지금, 신뢰할 수 있는 Sennheiser 제품은 시장의 아이콘으로 자리매김했으며, 여전히 업계의 기술 표준을 제시하고 있습니다.`;
 
 
-export const TIMELINE_DATA: TimelineEntry[] = [
+export const HISTORY_DATA: HistoryEntry[] = [
   {
     id: '1',
     year: '1945',
