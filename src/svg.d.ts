@@ -1,4 +1,4 @@
-/// <reference types="vite/client" />
+// src/svg.d.ts
 
 declare module '*.svg?react' {
     import * as React from 'react';

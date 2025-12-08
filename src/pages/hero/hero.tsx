@@ -7,7 +7,7 @@ interface HeroProps{
 export const Hero = ({}:HeroProps) => {
 
     return(
-        <div className="hero page-container">
+        <div className="hero page-container bg-red-950">
             기타 내용들
         </div>
     )

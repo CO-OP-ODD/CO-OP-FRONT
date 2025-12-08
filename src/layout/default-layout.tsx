@@ -1,14 +1,12 @@
 import {Outlet} from 'react-router-dom';
 import {NavMenu} from "@components/common/nav-menu/nav-menu.tsx";
-import {cn} from "@/lib/utils.ts";
+import ExampleNavMenu from "@components/common/demo-nav/demo-nav.tsx";
 
 export default function DefaultLayout(){
 
     return(
         <div>
-            <header className={cn("w-full backdrop-blur ")}>
-                <NavMenu/>
-            </header>
+            <NavMenu/>
             <main lang="ko">
                 <Outlet />
             </main>

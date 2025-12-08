@@ -7,7 +7,19 @@
 
 .page-container{
   @include mixins.responsive-container;
-  //@include mixins.resize-root-padding;
+  // @include mixins.resize-root-padding;
+
+  // debug
+  background: red;
+}
+
+[data-radix-navigation-menu-viewport] {
+  transform-origin: top center;
+  position: relative;
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 @layer base {
