@@ -1,24 +1,24 @@
-// pages/history/TimelineItem.tsx
-
 import React from "react";
-import type { TimelineEntry } from "./types";
+import type { HistoryEntry } from "./types";
 
-interface TimelineItemProps {
-  entry: TimelineEntry;
+interface HistoryItemProps {
+  entry: HistoryEntry;
 }
 
-export const TimelineItem: React.FC<TimelineItemProps> = ({ entry }) => {
+export const HistoryItem: React.FC<HistoryItemProps> = ({ entry }) => {
   return (
     <div className="flex flex-col md:flex-row gap-6 md:gap-12 py-12 border-b border-gray-300 last:border-0">
       
-      {/* Year Column */}
+      
+
+      {/* Year */}
       <div className="md:w-24 flex-shrink-0">
         <span className="text-lg md:text-xl font-bold text-black">
           {entry.year}
         </span>
       </div>
 
-      {/* Image Column */}
+      {/* Image */}
       <div className="w-full md:w-[320px] flex-shrink-0">
         <div className="aspect-[3/2] w-full bg-gray-200 overflow-hidden">
           {Boolean(entry.imageUrl) && (
@@ -32,7 +32,7 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({ entry }) => {
         </div>
       </div>
 
-      {/* Content Column */}
+      {/* text */}
       <div className="flex-1 pt-2 flex flex-col justify-end">
         <h3 className="text-xl font-bold text-black mb-4">{entry.title}</h3>
         <p className="text-sm md:text-base text-gray-700 leading-relaxed whitespace-pre-line">

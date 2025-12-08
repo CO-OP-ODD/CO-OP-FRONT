@@ -1,4 +1,3 @@
-// src/pages/history/NavigationPills.tsx
 import React from "react";
 import { NavItem } from "./navItems";
 
@@ -12,7 +11,7 @@ export const NavigationPills: React.FC<NavigationPillsProps> = ({
   activeItem,
   onSelect,
 }) => {
-  const items = [NavItem.ABOUT, NavItem.HISTORY, NavItem.NEWS];
+  const items = [NavItem.ABOUT, NavItem.HISTORY, NavItem.NEWSROOM];
 
   return (
     <div className="flex flex-wrap gap-3 mb-12">
