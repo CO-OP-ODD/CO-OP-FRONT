@@ -7,7 +7,12 @@ export type Product = {
   price: number;
   thumbnail: string;
   description: string;
-  badges?: string[]; // 상품 특징 뱃지
+  badges?: string[];
+
+  // 상세용 데이터
+  features?: string[]; // 기능
+  keySpecs?: { label: string; value: string }[]; // 주요 사항
+  techSpecs?: { label: string; value: string }[]; // 기술 사항
 };
 
 export const PRODUCTS: Product[] = [
@@ -19,6 +24,30 @@ export const PRODUCTS: Product[] = [
     thumbnail: "/images/product/img01_1.png",
     description: "전문가용 모니터링 헤드폰으로 정확한 사운드를 제공합니다.",
     badges: ["On-ear", "3.5 mm", "6.3 mm", "Broadcast", "Film making"],
+    features: [
+      "오픈백 설계로 넓은 사운드 스테이지 제공",
+      "장시간 착용에도 편안한 경량 헤드밴드 구조",
+      "모니터링에 최적화된 플랫한 주파수 응답",
+    ],
+    keySpecs: [
+      { label: "임피던스", value: "130 Ω (1 kHz)" },
+      { label: "최대 음압 레벨", value: "128 dBSPL (1 kHz @ 5% THD)" },
+      { label: "전력 소비 (Amp)", value: "300 mW (100 h, noise IEC 60268)" },
+      {
+        label: "감도",
+        value: "105 dBSPL (1 kHz / 1 Vrms), 96 dBSPL (1 kHz / 1 mW)",
+      },
+      { label: "변환기 유형", value: "동적" },
+      { label: "연결부", value: "유선" },
+      { label: "커넥터", value: "3.5 mm, 6.3 mm" },
+    ],
+    techSpecs: [
+      { label: "주파수 응답", value: "10 Hz – 40 kHz" },
+      { label: "임피던스", value: "250 Ω" },
+      { label: "음압 레벨(SPL)", value: "108 dB" },
+      { label: "무게", value: "280 g (케이블 제외)" },
+      { label: "케이블 길이", value: "3 m" },
+    ],
   },
   {
     id: 2,
