@@ -9,11 +9,25 @@ import NewsRoom from "@/pages/newsroom/NewsRoom";
 
 export default function App() {
   const [activeItem, setActiveItem] = useState<NavItem>(NavItem.HISTORY);
-
+  const getTitle = () => {
+    switch (activeItem) {
+      case NavItem.ABOUT:
+        return "About Us";
+      case NavItem.HISTORY:
+        return "Our History";
+      case NavItem.NEWSROOM:
+        return "Newsroom";
+      default:
+        return "";
+    }
+  };
   return (
     <div className="px-6 py-12 max-w-6xl mx-auto">
-
       <NavigationPills activeItem={activeItem} onSelect={setActiveItem} />
+
+      <h1 className="text-5xl md:text-6xl font-bold mb-16 tracking-tight">
+        {getTitle()}
+      </h1>
 
       {activeItem === NavItem.HISTORY && (
         <div>
@@ -24,7 +38,7 @@ export default function App() {
       )}
 
       {activeItem === NavItem.NEWSROOM && (
-        <NewsRoom />  // ← 기존 뉴스룸 컴포넌트 바로 렌더링
+        <NewsRoom /> // ← 기존 뉴스룸 컴포넌트 바로 렌더링
       )}
 
       {activeItem !== NavItem.HISTORY && activeItem !== NavItem.NEWSROOM && (
@@ -32,7 +46,6 @@ export default function App() {
           This section is not implemented yet.
         </p>
       )}
-
     </div>
   );
 }
