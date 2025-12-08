@@ -21,6 +21,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -113,25 +114,32 @@ function ProductImageOverlayCard({
 }
 
 // 프롭스 타입을 인라인으로 바로 적어서 시작
-function ProductCardShell({
-  children,
-  highlight,
-}: {
-  children: React.ReactNode; // ReactNode: 하위에 어떤 JSX든 받도록 설정 (카드, 텍스트, 이미지, 뭐든 마음대로 허용하는 타입 사용)
-  highlight?: boolean; // 강조 카드인지 여부 (선택적 boolean 프롭스)
-}) {
-  return (
-    <div
-      className={cn(
-        "js-product-card",
-        "overflow-hidden rounded-2xl border bg-card/70",
-        highlight && "lg:col-span-2 lg:row-span-2" // highlight가 true이면 상단의 큰 카드 레이아웃 적용하기
-      )}
-    >
-      {/* children을 그대로 렌더링해서 재사용 가능한 카드 컴포넌트로 사용 */}
-      {children}
-    </div>
+type ProductCardShellProps = {
+  children: React.ReactNode;
+  highlight?: boolean;
+  to?: string; // 링크로 이동할 경로 (값이 있으면 카드 전체를 Link로 렌더링)
+};
+
+function ProductCardShell({ children, highlight, to }: ProductCardShellProps) {
+  // 공통으로 사용할 클래스 정의 (Link든 div든 동일하게 적용)
+  const className = cn(
+    "js-product-card",
+    "overflow-hidden rounded-2xl border bg-card/70",
+    highlight && "lg:col-span-2 lg:row-span-2" // highlight가 true이면 상단의 큰 카드 레이아웃 적용하기
   );
+
+  // to 값이 있으면 카드 전체를 <Link>로 렌더링 (클릭 시 상세페이지 이동)
+  if (to) {
+    return (
+      <Link to={to} className={className}>
+        {/* children을 그대로 렌더링해서 재사용 가능한 카드 컴포넌트로 사용 */}
+        {children}
+      </Link>
+    );
+  }
+
+  // to 값이 없으면 기존처럼 그냥 div로 렌더링
+  return <div className={className}>{children}</div>;
 }
 
 export default function ProductPage() {
@@ -162,7 +170,6 @@ export default function ProductPage() {
             scrollTrigger: {
               trigger: card,
               start: "top 85%",
-              toggleActions: "play none none reverse",
             },
           }
         );
@@ -278,7 +285,11 @@ export default function ProductPage() {
         <section>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {topProducts.map((p, index) => (
-              <ProductCardShell key={p.id} highlight={index === 0}>
+              <ProductCardShell
+                key={p.id}
+                highlight={index === 0} // 첫 번째 카드만 2x2 큰 레이아웃
+                to={`/products/${p.id}`} // 이 카드 전체를 클릭하면 상세페이지로 이동
+              >
                 <ProductImageOverlayCard product={p} />
               </ProductCardShell>
             ))}
@@ -289,7 +300,10 @@ export default function ProductPage() {
         <section className="space-y-3">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {gridProducts.map((p) => (
-              <ProductCardShell key={p.id}>
+              <ProductCardShell
+                key={p.id} // ⭐ key는 여기
+                to={`/products/${p.id}`} // ⭐ 카드 전체가 링크
+              >
                 <ProductImageOverlayCard product={p} />
               </ProductCardShell>
             ))}
