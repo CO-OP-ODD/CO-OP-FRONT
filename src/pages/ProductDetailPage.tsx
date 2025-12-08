@@ -3,6 +3,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import { IoMdHome } from "react-icons/io";
 import { PRODUCTS } from "@/data/products";
 import { Button } from "@/components/ui/button";
+import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io";
+
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 
 import {
   Breadcrumb,
@@ -16,10 +25,14 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export default function ProductDetailPage() {
+  // URL 파라미터로부터 id 값 가져오기 (상품 인덱스 번호)
   const { id } = useParams();
+  // 라우팅 이동용 훅 (버튼 클릭 시 /products 등으로 이동)
   const navigate = useNavigate();
+  // 상품 데이터들중에서 현재 id와 같은 상품 찾기 못 찾으면 PRODUCTS[0] (첫 번째 상품)로 이동하기
   const product = PRODUCTS.find((p) => String(p.id) === id) ?? PRODUCTS[0];
 
+  // 특정 섹션으로 스크롤 이동 함수
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -27,26 +40,44 @@ export default function ProductDetailPage() {
     }
   };
 
-  const [navAtTop, setNavAtTop] = useState(false);
+  // sticky 네비게이션 위치 상태 관리
+  const [navPosition, setNavPosition] = useState<"bottom" | "middle" | "top">(
+    "bottom"
+  );
+  // 전체를 감싸는 그리드 영역 참고해서 이 요소의 위치를 기준으로 스크롤 상태를 계산
   const gridRef = useRef<HTMLDivElement | null>(null);
+  // 주요 사항 아코디언에서 활성화된 항목 인덱스 상태 관리
+  const [activeKeySpecIndex, setActiveKeySpecIndex] = useState<number | null>(
+    null
+  );
 
+  // 스크롤 위치에 따라 navPosition 값을 업데이트 실행
   useEffect(() => {
     const handleScroll = () => {
       const gridEl = gridRef.current;
       if (!gridEl) return;
 
       const rect = gridEl.getBoundingClientRect();
-      const viewportHeight =
-        window.innerHeight || document.documentElement.clientHeight;
+      const viewportHeight = window.innerHeight;
 
-      // ✅ grid 영역의 "아래"가 화면 아래와 만나거나 위로 올라갔을 때 top으로 붙이기
-      const shouldStickTop = rect.bottom <= viewportHeight;
-      setNavAtTop(shouldStickTop);
+      // 1) 아직 grid의 하단이 화면 하단보다 아래에 있을 때 navbar는 화면 아래에 붙어 있는 상태 유지
+      if (rect.bottom > viewportHeight) {
+        setNavPosition("bottom");
+      }
+      // 2) grid 하단이 화면 하단 위로 올라왔지만, 아직 화면 top(0) 안 올라갔을 때 중간 구간, 자연스러운 이동 연출
+      else if (rect.bottom <= viewportHeight && rect.bottom > 0) {
+        setNavPosition("middle");
+      }
+      // 3) grid 하단이 화면 top(0)까지 올라갔을 때 navbar를 화면 상단에 고정
+      else {
+        setNavPosition("top");
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // 첫 렌더 시 상태 맞추기
+    handleScroll(); // 첫 렌더 시 상태 설정
 
+    // 언마운트 시 이벤트 제거
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -57,32 +88,27 @@ export default function ProductDetailPage() {
         {/* 왼쪽영역 */}
         <section className="min-h-screen bg-[#ECEBF0]">
           {/* sticky가 걸리는 래퍼 */}
-          <div className="sticky top-20 flex items-center justify-center pt-10">
+          <div className="sticky top-0 flex items-center justify-center">
             {/* 상품 영역 */}
             <div className="relative flex h-[53.125rem] w-[59.5rem] max-w-full items-center justify-center">
               {/* 헤드폰 이미지 */}
               <img
                 src={product.thumbnail}
                 alt={product.name}
-                className="block h-auto w-1/2 object-contain"
+                className="block h-auto w-[55%] object-contain"
               />
 
               {/* 우측 하단 페이지네이션 */}
-              <div className="absolute bottom-[7.8rem] right-10 flex items-center gap-4 text-[0.75rem] text-[#7b7b85]">
+              <div className="absolute bottom-[2rem] right-10 flex items-center gap-4 text-[0.75rem] text-[#222] font-semibold">
                 <span>1 / 6</span>
                 <div className="flex gap-2">
-                  <button
-                    type="button"
-                    className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white"
-                  >
-                    {"<"}
-                  </button>
-                  <button
-                    type="button"
-                    className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white"
-                  >
-                    {">"}
-                  </button>
+                  <div className="bg-[#f4f4f6] text-[#111] flex h-[3.375rem] w-[3.375rem] items-center justify-center rounded-full transition-colors duration-200 hover:bg-[#B70A09] hover:text-white">
+                    <IoIosArrowBack className="font-semibold cursor-pointer text-[0.9rem]" />
+                  </div>
+
+                  <div className="bg-[#f4f4f6] text-[#111] flex h-[3.375rem] w-[3.375rem] items-center justify-center rounded-full transition-colors duration-200 hover:bg-[#B70A09] hover:text-white">
+                    <IoIosArrowForward className="font-semibold cursor-pointer text-[0.9rem]" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -90,11 +116,11 @@ export default function ProductDetailPage() {
         </section>
 
         {/* 오른쪽영역 */}
-        <section className="mt-[32.3rem] bg-white pl-6 pr-12 pt-[7.5rem]">
+        <section className="mt-[29.3rem] bg-white pl-6 pr-12 pt-[7.5rem]">
           {/* 상단 브레드크럼 */}
           <div className="mb-8">
             <Breadcrumb>
-              <BreadcrumbList className="text-[0.6875rem] text-[#8c8c95]">
+              <BreadcrumbList className="text-[0.875rem] text-[#8c8c95]">
                 <BreadcrumbItem>
                   <BreadcrumbLink href="/" className="flex items-center">
                     <IoMdHome size={14} />
@@ -118,24 +144,24 @@ export default function ProductDetailPage() {
 
           {/* 상품명 / 품목번호 / 버튼 */}
           <header className="mb-12">
-            <h1 className="mb-4 text-[3.5rem] font-semibold leading-[1.05]">
+            <h1 className="mb-4 text-[3.12rem] font-semibold leading-[1.05]">
               {product.name}
             </h1>
 
-            <p className="mb-6 text-sm text-[#555865]">
+            <p className="mb-6 text-[1.25rem] text-[#555865]">
               품목 번호 <span className="font-medium text-[#111]">700286</span>
             </p>
 
             <div className="flex items-center gap-3">
               <Button
                 size="sm"
-                className="h-10 rounded-full px-[1.125rem] text-xs"
+                className="font-semibold shadow-none bg-[#f5f5f7] text-[#111] h-[3.375rem] rounded-full px-[1.125rem] text-xs transition-colors duration-200 hover:bg-[#B70A09] hover:text-white"
                 onClick={() => navigate("/products")}
               >
                 제품군 전환
               </Button>
 
-              <button className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-[#f5f5f7] text-xl">
+              <button className="flex h-[3.375rem] w-[3.375rem] cursor-pointer items-center justify-center rounded-full bg-[#f5f5f7] text-xl transition-colors duration-200 hover:bg-[#B70A09] hover:text-white">
                 ★
               </button>
             </div>
@@ -177,10 +203,16 @@ export default function ProductDetailPage() {
       <nav
         className={cn(
           "z-20 w-full border-t border-[#e5e5ea] bg-white transition-all duration-300",
-          navAtTop ? "fixed top-0 left-0" : "fixed bottom-0 left-0"
+
+          navPosition === "bottom" && "fixed bottom-0 left-0",
+
+          // middle 단계 — position 제거하고 문서 흐름 그대로 따라가게 함
+          navPosition === "middle" && "static",
+
+          navPosition === "top" && "fixed top-0 left-0"
         )}
       >
-        <div className="mx-auto flex h-[4.1875rem] max-w-[120rem] items-center gap-3 px-8">
+        <div className="mx-auto flex h-[4.1875rem] max-w-[120rem] items-center gap-[0.3rem] px-8">
           <span className="mr-3 whitespace-nowrap text-xs text-[#8f8f99]">
             다음으로 이동
           </span>
@@ -189,7 +221,7 @@ export default function ProductDetailPage() {
           <button
             type="button"
             onClick={() => scrollToSection("features")}
-            className="h-10 cursor-pointer whitespace-nowrap rounded-full border border-[#111] bg-[#111] px-[0.875rem] text-[0.8125rem] text-white"
+            className="font-semibold h-[2rem] cursor-pointer whitespace-nowrap rounded-full border-none bg-[#ECEBF0] px-[0.875rem] text-[0.8125rem] text-[#33333a] transition-colors duration-200 hover:bg-[#B70A09] hover:text-white"
           >
             기능
           </button>
@@ -197,7 +229,7 @@ export default function ProductDetailPage() {
           <button
             type="button"
             onClick={() => scrollToSection("key-specs")}
-            className="h-10 cursor-pointer whitespace-nowrap rounded-full border border-[#e5e5ea] bg-[#f7f7f9] px-[0.875rem] text-[0.8125rem] text-[#33333a]"
+            className="font-semibold h-[2rem] cursor-pointer whitespace-nowrap rounded-full border-none bg-[#ECEBF0] px-[0.875rem] text-[0.8125rem] text-[#33333a] transition-colors duration-200 hover:bg-[#B70A09] hover:text-white"
           >
             주요 사항
           </button>
@@ -205,86 +237,123 @@ export default function ProductDetailPage() {
           <button
             type="button"
             onClick={() => scrollToSection("tech-specs")}
-            className="h-10 cursor-pointer whitespace-nowrap rounded-full border border-[#e5e5ea] bg-[#f7f7f9] px-[0.875rem] text-[0.8125rem] text-[#33333a]"
+            className="font-semibold h-[2rem] cursor-pointer whitespace-nowrap rounded-full border-none bg-[#ECEBF0] px-[0.875rem] text-[0.8125rem] text-[#33333a] transition-colors duration-200 hover:bg-[#B70A09] hover:text-white"
           >
             기술 사항
           </button>
         </div>
       </nav>
 
-      {/* 기능 섹션 */}
-      <section id="features" className="mx-auto max-w-full px-8 pt-16 pb-20">
-        <h2 className="mb-10 text-[3rem] font-semibold leading-[1.1]">기능</h2>
-
-        <ul className="list-disc pl-6 text-base leading-[1.8]">
-          <li>
-            수십 년에 걸친 젠하이저의 엔지니어링, 기술, 연구 및 개발이
-            뒷받침합니다.
-          </li>
-          <li>
-            매우 넓고 입체적인 사운드 스테이지와 초정밀 로컬라이제이션을 갖춘
-            오픈백 디자인
-          </li>
-          <li>
-            전체 스펙트럼에 걸쳐 정직하고 동적인 사운드를 재현하는 무색 주파수
-            응답
-          </li>
-          <li>
-            완전하고 정확하며 명확하게 정의된 로우 엔드를 위한 혁신적인 저주파
-            실린더 시스템
-          </li>
-          <li>
-            정밀한 인체공학적 설계로 압박감을 없애고 유연하고 가벼운 최고의
-            편안함을 제공
-          </li>
-          <li>
-            전고조파 왜곡(THD)을 줄이고 공간을 최소화하여 오디오 정확도를
-            향상시키는 젠하이저 오픈 프레임 아키텍처
-          </li>
-          <li>
-            프로듀싱 또는 믹싱을 위한 두 개의 유니크한 이어패드가 귀의 피로를
-            덜어주고 주파수를 정확히 파악
-          </li>
-          <li>
-            기하학적으로 각진 이어컵 설계로 트랜스듀서 배치를 최적화하여 일관된
-            청취 경험 제공
-          </li>
-          <li>탁월한 드라이버 성능과 효율성을 보장하는 첨단 네오디뮴 자석</li>
-          <li>
-            특허받은 케이블 코일 구조로 케이블을 통해 전달되는 노이즈를 차단하여
-            가장 선명한 신호 보장
-          </li>
-          <li>
-            매우 사실적이고 역동적인 오디오 재현을 위한 초경량 보이스 코일
-          </li>
-          <li>
-            모든 스튜디오 구성에 쉽게 적응 가능한 탈착식 케이블의 좌측 및 우측
-            이어잭
-          </li>
-          <li>
-            지속 가능성을 고려한 세척 및 교체 가능한 패드와 산림경영인증(FSC)을
-            받은 환경 친화적 포장
-          </li>
-          <li>오픈 메시 메탈 이어컵 커버로 자연스러운 통기성 제공</li>
-          <li>
-            독일 기술력으로 설계되고루마니아에서 수작업으로 조립된 탁월한
-            내구성의 디자인
-          </li>
-        </ul>
+      {/* 기능 섹션 - 아코디언 */}
+      <section id="features" className="mx-auto max-w-full px-8 pt-16 pb-6">
+        <Accordion type="multiple" className="w-full">
+          <AccordionItem value="features">
+            <AccordionTrigger className="text-left no-underline hover:no-underline">
+              <h2 className="text-[3rem] font-semibold leading-[1.1]">기능</h2>
+            </AccordionTrigger>
+            <AccordionContent>
+              {product.features && product.features.length > 0 ? (
+                <ul className="mt-6 list-disc pl-6 text-base leading-[1.8]">
+                  {product.features.map((feature, idx) => (
+                    <li key={idx}>{feature}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-4 text-base text-[#777]"></p>
+              )}
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </section>
 
-      {/* 주요 사항 */}
-      <section id="key-specs" className="mx-auto max-w-full px-8 pt-16 pb-20">
-        <h2 className="mb-10 text-[3rem] font-semibold leading-[1.1]">
-          주요 사항
-        </h2>
+      {/* 주요 사항 - 아코디언 */}
+      <section id="key-specs" className="mx-auto max-w-full px-8 pt-4 pb-6">
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="key-specs">
+            <AccordionTrigger className="text-left hover:no-underline">
+              <h2 className="text-[3rem] font-semibold leading-[1.1]">
+                주요 사항
+              </h2>
+            </AccordionTrigger>
+
+            <AccordionContent>
+              {product.keySpecs && product.keySpecs.length > 0 ? (
+                <div className="mt-4 w-100 border-t border-[#eee]">
+                  {product.keySpecs.map((spec, idx) => {
+                    const isActive = activeKeySpecIndex === idx;
+
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() =>
+                          setActiveKeySpecIndex(isActive ? null : idx)
+                        }
+                        className={cn(
+                          "grid w-full grid-cols-[1.5fr_2fr] items-center px-4 py-4 text-left",
+                          "border-b border-[#eee]",
+                          "cursor-pointer transition-colors duration-150",
+                          "hover:bg-[#B70A09] hover:text-white last:border-none",
+                          isActive && "bg-[#B70A09] text-white"
+                        )}
+                      >
+                        {/* 항목 이름 */}
+                        <span className="text-[0.95rem] md:text-base">
+                          {spec.label}
+                        </span>
+
+                        {/* 설명 텍스트 - 활성화 시 조금 더 크게 */}
+                        <span
+                          className={cn(
+                            "text-[0.95rem] md:text-base leading-snug",
+                            isActive &&
+                              "text-[1.05rem] md:text-[1.1rem] font-semibold"
+                          )}
+                        >
+                          {spec.value}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="mt-4 text-base text-[#777]"></p>
+              )}
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </section>
 
-      {/* 기술 사항 */}
-      <section id="tech-specs" className="mx-auto max-w-full px-8 pt-16 pb-20">
-        <h2 className="mb-10 text-[3rem] font-semibold leading-[1.1]">
-          기술 사항
-        </h2>
+      {/* 기술 사항 - 아코디언 */}
+      <section id="tech-specs" className="mx-auto max-w-full px-8 pt-4 pb-20">
+        <Accordion type="multiple" className="w-full">
+          <AccordionItem value="tech-specs">
+            <AccordionTrigger className="text-left no-underline hover:no-underline">
+              <h2 className="text-[3rem] font-semibold leading-[1.1]">
+                기술 사항
+              </h2>
+            </AccordionTrigger>
+            <AccordionContent>
+              {product.techSpecs && product.techSpecs.length > 0 ? (
+                <div className="mt-6 grid max-w-3xl grid-cols-[1.5fr_2fr] gap-y-3 text-[0.95rem]">
+                  {product.techSpecs.map((spec, idx) => (
+                    <div
+                      key={idx}
+                      className="contents border-b border-[#eee] last:border-b-0 pb-2"
+                    >
+                      <div className="py-2 font-medium text-[#333]">
+                        {spec.label}
+                      </div>
+                      <div className="py-2 text-[#555]">{spec.value}</div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="mt-4 text-base text-[#777]"></p>
+              )}
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </section>
     </div>
   );
