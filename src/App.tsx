@@ -16,13 +16,13 @@ export default function App() {
       case NavItem.HISTORY:
         return "Our History";
       case NavItem.NEWSROOM:
-        return "Newsroom";
+        return "News Room";
       default:
         return "";
     }
   };
   return (
-    <div className="px-6 py-12 max-w-6xl mx-auto">
+    <div className="px-6 py-12 max-w-7xl mx-auto">
       <NavigationPills activeItem={activeItem} onSelect={setActiveItem} />
 
       <h1 className="text-5xl md:text-6xl font-bold mb-16 tracking-tight">
