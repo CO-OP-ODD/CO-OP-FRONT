@@ -12,7 +12,7 @@ export const HISTORY_DATA: HistoryEntry[] = [
     year: '1945',
     title: '독일 엔지니어링',
     description: 'Fritz Sennheiser 공학 박사는 1945년에 이후 젠하이저 일렉트로닉이 된 Laboratorium Wennebostel(Lab W)을 설립했습니다. 이 새로운 회사는 측정 장비를 생산하여 Siemens에 판매합니다. 1946년, Sennheiser는 실제로 Siemens를 위한 첫 번째 DM 1 마이크를 제작합니다. 1년 후, Sennheiser는 자체 마이크인 DM 2를 출시합니다.',
-    imageUrl: 'https://picsum.photos/800/400?random=1'
+    imageUrl: ''
   },
   {
     id: '2',
