@@ -42,7 +42,8 @@ type ImageCardProps = {
   aspectClass?: string;
 };
 
-// 각 상품의 정보 product 으로 받고 aspectClass에 기본값 "aspect-square"으로 지정해둠
+// 🔹 ProductImageOverlayCard — 상품 이미지 + hover 효과 + 뱃지 표시 전용 컴포넌트
+// => 각 상품의 정보 product 으로 받고 aspectClass에 기본값 "aspect-square"으로 지정해둠
 function ProductImageOverlayCard({
   product,
   aspectClass = "aspect-square",
@@ -120,6 +121,8 @@ type ProductCardShellProps = {
   to?: string; // 링크로 이동할 경로 (값이 있으면 카드 전체를 Link로 렌더링)
 };
 
+// 🔹 ProductCardShell — '상품 영역' 전체 카드 레이아웃 컴포넌트
+// => 카드의 외곽 레이아웃(테두리, 둥근 모서리, highlight 옵션)을 담당하는 상위 래퍼 컴포넌트
 function ProductCardShell({ children, highlight, to }: ProductCardShellProps) {
   // 공통으로 사용할 클래스 정의 (Link든 div든 동일하게 적용)
   const className = cn(
@@ -288,7 +291,7 @@ export default function ProductPage() {
               <ProductCardShell
                 key={p.id}
                 highlight={index === 0} // 첫 번째 카드만 2x2 큰 레이아웃
-                to={`/products/${p.id}`} // 이 카드 전체를 클릭하면 상세페이지로 이동
+                to={`/products/${p.id}`} // 상세페이지로 이동
               >
                 <ProductImageOverlayCard product={p} />
               </ProductCardShell>
@@ -300,10 +303,7 @@ export default function ProductPage() {
         <section className="space-y-3">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {gridProducts.map((p) => (
-              <ProductCardShell
-                key={p.id} // ⭐ key는 여기
-                to={`/products/${p.id}`} // ⭐ 카드 전체가 링크
-              >
+              <ProductCardShell key={p.id} to={`/products/${p.id}`}>
                 <ProductImageOverlayCard product={p} />
               </ProductCardShell>
             ))}
