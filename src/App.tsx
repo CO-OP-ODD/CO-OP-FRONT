@@ -1,6 +1,7 @@
-import './App.scss'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProductSkeletonPage from "@/pages/ProductSkeletonPage";
 import ProductPage from "@/pages/ProductPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 export default function App() {
   return (
