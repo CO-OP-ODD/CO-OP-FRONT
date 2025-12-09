@@ -2,8 +2,8 @@ import "./App.scss";
 import { useState } from "react";
 
 import { NavigationPills } from "@/pages/history/NavigationPills";
-import { HistoryItem } from "@/pages/history/HistoryItem";
-import { HISTORY_DATA } from "@/pages/history/constants"; //Hisotry(연혁) 데이터
+import { HistoryItem } from "@/pages/history/History";
+import { HISTORY_DATA } from "@/pages/history/historyItems"; //Hisotry(연혁) 데이터
 import { NavItem } from "@/pages/history/navItems"; 
 import NewsRoom from "@/pages/newsroom/NewsRoom"; 
 
