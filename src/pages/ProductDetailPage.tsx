@@ -5,6 +5,8 @@ import { PRODUCTS } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
+import { ChevronDown } from "lucide-react";
+import ProductExperienceSection from "@/pages/ProductExperienceSection";
 
 import {
   Accordion,
@@ -46,10 +48,6 @@ export default function ProductDetailPage() {
   );
   // 전체를 감싸는 그리드 영역 참고해서 이 요소의 위치를 기준으로 스크롤 상태를 계산
   const gridRef = useRef<HTMLDivElement | null>(null);
-  // 주요 사항 아코디언에서 활성화된 항목 인덱스 상태 관리
-  const [activeKeySpecIndex, setActiveKeySpecIndex] = useState<number | null>(
-    null
-  );
 
   // 스크롤 위치에 따라 navPosition 값을 업데이트 실행
   useEffect(() => {
@@ -199,7 +197,7 @@ export default function ProductDetailPage() {
         </section>
       </div>
 
-      {/* sticky  */}
+      {/* navbar */}
       <nav
         className={cn(
           "z-20 w-full border-t border-[#e5e5ea] bg-white transition-all duration-300",
@@ -231,7 +229,7 @@ export default function ProductDetailPage() {
             onClick={() => scrollToSection("key-specs")}
             className="font-semibold h-[2rem] cursor-pointer whitespace-nowrap rounded-full border-none bg-[#ECEBF0] px-[0.875rem] text-[0.8125rem] text-[#33333a] transition-colors duration-200 hover:bg-[#B70A09] hover:text-white"
           >
-            주요 사항
+            주요 사양
           </button>
 
           <button
@@ -239,7 +237,7 @@ export default function ProductDetailPage() {
             onClick={() => scrollToSection("tech-specs")}
             className="font-semibold h-[2rem] cursor-pointer whitespace-nowrap rounded-full border-none bg-[#ECEBF0] px-[0.875rem] text-[0.8125rem] text-[#33333a] transition-colors duration-200 hover:bg-[#B70A09] hover:text-white"
           >
-            기술 사항
+            기술 사양
           </button>
         </div>
       </nav>
@@ -248,113 +246,110 @@ export default function ProductDetailPage() {
       <section id="features" className="mx-auto max-w-full px-8 pt-16 pb-6">
         <Accordion type="multiple" className="w-full">
           <AccordionItem value="features">
-            <AccordionTrigger className="text-left no-underline hover:no-underline">
+            <AccordionTrigger className="text-left no-underline hover:no-underline [&>svg]:hidden">
               <h2 className="text-[3rem] font-semibold leading-[1.1]">기능</h2>
             </AccordionTrigger>
             <AccordionContent>
               {product.features && product.features.length > 0 ? (
-                <ul className="mt-6 list-disc pl-6 text-base leading-[1.8]">
+                <ul className="mt-6 list-disc pl-6 text-[1.25rem] leading-[1.8]">
                   {product.features.map((feature, idx) => (
                     <li key={idx}>{feature}</li>
                   ))}
                 </ul>
               ) : (
-                <p className="mt-4 text-base text-[#777]"></p>
+                <p className="mt-4 text-base text-[#777]">
+                  기능 정보가 없습니다.
+                </p>
               )}
             </AccordionContent>
           </AccordionItem>
         </Accordion>
       </section>
 
-      {/* 주요 사항 - 아코디언 */}
+      {/* 주요 사양 - 아코디언 */}
       <section id="key-specs" className="mx-auto max-w-full px-8 pt-4 pb-6">
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="key-specs">
-            <AccordionTrigger className="text-left hover:no-underline">
+            <AccordionTrigger className="text-left hover:no-underline [&>svg]:hidden">
               <h2 className="text-[3rem] font-semibold leading-[1.1]">
-                주요 사항
+                주요 사양
               </h2>
             </AccordionTrigger>
 
             <AccordionContent>
-              {product.keySpecs && product.keySpecs.length > 0 ? (
-                <div className="mt-4 w-100 border-t border-[#eee]">
-                  {product.keySpecs.map((spec, idx) => {
-                    const isActive = activeKeySpecIndex === idx;
+              <div className="mt-4 w-full">
+                {product.keySpecs!.map((spec, idx) => (
+                  <div
+                    key={idx}
+                    className={cn(
+                      "grid w-full grid-cols-[1.5fr_2fr] items-center px-4 py-4 text-left",
+                      "cursor-pointer transition-colors duration-150",
+                      "hover:bg-[#B70A09] hover:text-white last:border-none"
+                    )}
+                  >
+                    {/* 항목 이름 */}
+                    <span className="text-[1.25rem]">{spec.label}</span>
 
-                    return (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() =>
-                          setActiveKeySpecIndex(isActive ? null : idx)
-                        }
-                        className={cn(
-                          "grid w-full grid-cols-[1.5fr_2fr] items-center px-4 py-4 text-left",
-                          "border-b border-[#eee]",
-                          "cursor-pointer transition-colors duration-150",
-                          "hover:bg-[#B70A09] hover:text-white last:border-none",
-                          isActive && "bg-[#B70A09] text-white"
-                        )}
-                      >
-                        {/* 항목 이름 */}
-                        <span className="text-[0.95rem] md:text-base">
-                          {spec.label}
-                        </span>
-
-                        {/* 설명 텍스트 - 활성화 시 조금 더 크게 */}
-                        <span
-                          className={cn(
-                            "text-[0.95rem] md:text-base leading-snug",
-                            isActive &&
-                              "text-[1.05rem] md:text-[1.1rem] font-semibold"
-                          )}
-                        >
-                          {spec.value}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : (
-                <p className="mt-4 text-base text-[#777]"></p>
-              )}
+                    {/* 설명 텍스트 */}
+                    <span className="text-[1.25rem]">{spec.value}</span>
+                  </div>
+                ))}
+              </div>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
       </section>
 
-      {/* 기술 사항 - 아코디언 */}
+      {/* 기술 사양 */}
       <section id="tech-specs" className="mx-auto max-w-full px-8 pt-4 pb-20">
-        <Accordion type="multiple" className="w-full">
+        <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="tech-specs">
-            <AccordionTrigger className="text-left no-underline hover:no-underline">
+            <AccordionTrigger className="text-left no-underline hover:no-underline [&>svg]:hidden">
               <h2 className="text-[3rem] font-semibold leading-[1.1]">
-                기술 사항
+                기술 사양
               </h2>
             </AccordionTrigger>
-            <AccordionContent>
-              {product.techSpecs && product.techSpecs.length > 0 ? (
-                <div className="mt-6 grid max-w-3xl grid-cols-[1.5fr_2fr] gap-y-3 text-[0.95rem]">
-                  {product.techSpecs.map((spec, idx) => (
-                    <div
-                      key={idx}
-                      className="contents border-b border-[#eee] last:border-b-0 pb-2"
-                    >
-                      <div className="py-2 font-medium text-[#333]">
-                        {spec.label}
+
+            <AccordionContent className="pb-0">
+              {/* 내부 소분류 아코디언 */}
+              <Accordion type="single" collapsible className="mt-4 w-full ">
+                {product.techDetailGroups!.map((group) => (
+                  <AccordionItem
+                    key={group.id}
+                    value={group.id}
+                    className="last:border-none"
+                  >
+                    <AccordionTrigger className="group py-3 text-left text-[0.95rem] md:text-base font-medium no-underline hover:no-underline [&>svg]:hidden">
+                      <div className="flex items-center justify-between w-full">
+                        <span>{group.title}</span>
+                        <div
+                          className="
+                            bg-[#f4f4f6] text-[#111] 
+                            flex h-[3.375rem] w-[3.375rem] items-center justify-center rounded-full 
+                            transition-colors duration-200 
+                            hover:bg-[#B70A09] hover:text-white 
+                            group-data-[state=open]:bg-[#B70A09] group-data-[state=open]:text-white
+                          "
+                        >
+                          <ChevronDown className="h-5 w-5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                        </div>
                       </div>
-                      <div className="py-2 text-[#555]">{spec.value}</div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="mt-4 text-base text-[#777]"></p>
-              )}
+                    </AccordionTrigger>
+
+                    <AccordionContent className="px-4 pb-6 pt-1">
+                      <div
+                        dangerouslySetInnerHTML={{ __html: group.content }}
+                      />
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
       </section>
+
+      <ProductExperienceSection />
     </div>
   );
 }
