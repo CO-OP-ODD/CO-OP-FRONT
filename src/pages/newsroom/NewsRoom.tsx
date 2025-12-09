@@ -1,6 +1,6 @@
 import { NEWS_ITEMS } from "./newsItems";
-import AnimatedContent from "@/components/animation/AnimatedContent";
-
+import AnimatedContent from "@/lib/AnimatedContent";
+import news01 from "/images/news/01.png";
 
 export default function NewsRoom() {
   return (
@@ -13,7 +13,7 @@ export default function NewsRoom() {
           <div className="w-full bg-gray-200 aspect-[4/3] lg:aspect-[16/10] relative">
             <img
               className="w-full object-cover overflow-hidden"
-              src="/images/news/01.png"
+              src={news01}
               alt="뉴스메인"
             />
           </div>
