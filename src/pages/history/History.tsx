@@ -1,24 +1,25 @@
 
 import type { HistoryEntry } from "./types";
-import AnimatedContent from "@/components/animation/AnimatedContent";
+import AnimatedContent from "@/lib/AnimatedContent";
 
 
 interface HistoryItemProps {
   item: HistoryEntry;
   delay: number;
+  forceVisible: boolean;
 }
 
-export const HistoryItem = ({ item, delay }: HistoryItemProps) => {
+export const HistoryItem = ({ item, delay, forceVisible }: HistoryItemProps) => {
 
   return (
     <AnimatedContent
-      distance={120}
+      distance={80}
       direction="vertical"
-      duration={1.2}
+      duration={1.0}
       delay={delay}
-      threshold={0.35}
+      threshold={forceVisible ? 0 : 0.1}
       ease="power3.out"
-      initialOpacity={0}
+      initialOpacity={forceVisible ? 1 : 0}
       animateOpacity
     >
       <div className="flex flex-col md:flex-row gap-4 py-12 border-b border-gray-400">
