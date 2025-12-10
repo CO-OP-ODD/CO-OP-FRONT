@@ -1,6 +1,6 @@
 
-import type { HistoryEntry } from "./types";
-import AnimatedContent from "@/lib/AnimatedContent";
+import type { HistoryEntry } from "@/data/history/types";
+import AnimatedContent from "@/components/reactbits/AnimatedContent";
 
 
 interface HistoryItemProps {

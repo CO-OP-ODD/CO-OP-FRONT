@@ -1,5 +1,5 @@
-import { NEWS_ITEMS } from "./newsItems";
-import AnimatedContent from "@/lib/AnimatedContent";
+import { NEWS_ITEMS } from "@/data/news/newsItems";
+import AnimatedContent from "@/components/reactbits/AnimatedContent";
 import news01 from "/images/news/01.png";
 
 export default function NewsRoom() {

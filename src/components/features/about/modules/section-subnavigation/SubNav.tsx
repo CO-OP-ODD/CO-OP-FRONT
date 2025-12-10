@@ -1,4 +1,4 @@
-import { NavItem } from "./navItems";
+import { NavItem } from "@/data/subnav/navItems.ts";
 
 interface SubNavProps {
   activeItem: NavItem; // 현재 활성화된 네비게이션 아이템
