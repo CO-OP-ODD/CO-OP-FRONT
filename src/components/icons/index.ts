@@ -1,3 +1,5 @@
+export {IoIosMenu} from "react-icons/io";
+
 export {
     SiHtml5,
     SiJavascript,
@@ -7,7 +9,12 @@ export {
     SiShadcnui,
     SiSass,
     SiTurborepo,
-    SiFigma
+    SiFigma,
+    SiSennheiser
 } from 'react-icons/si';
+
+export {
+    MdArrowRight
+} from 'react-icons/md'
 
 export type {IconType} from 'react-icons';
