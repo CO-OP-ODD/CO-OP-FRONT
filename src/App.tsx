@@ -1,10 +1,10 @@
 import "./App.scss";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
-import { NavigationPills } from "@/pages/history/NavigationPills";
+import {SubNav} from "@/pages/subnavigation/SubNav"; 
 import { HistoryItem } from "@/pages/history/History";
 import { HISTORY_DATA } from "@/pages/history/historyItems"; //Hisotry(연혁) 데이터
-import { NavItem } from "@/pages/history/navItems";
+import { NavItem } from "@/pages/subnavigation/navItems";
 import NewsRoom from "@/pages/newsroom/NewsRoom";
 import VariableProximity from "./lib/VariableProximity";
 import AnimatedContent from "./lib/AnimatedContent";
@@ -12,10 +12,43 @@ import AboutUs from "./pages/about/AboutUs";
 
 export default function App() {
   // 상태 관리: 현재 활성화된 내비게이션 아이템(About us, History, News Room)
-  const [activeItem, setActiveItem] = useState<NavItem>(NavItem.HISTORY);
+  
   const containerRef = useRef<HTMLDivElement>(null);
 
   // 현재 activeItem에 따라 네비 아래 타이틀 문자열 반환
+  const getInitialTab = (): NavItem => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get("tab");
+    switch (tab) {
+      case "about":
+        return NavItem.ABOUT;
+      case "history":
+        return NavItem.HISTORY;
+      case "newsroom":
+        return NavItem.NEWSROOM;
+      default:
+        return NavItem.ABOUT; // 기본 랜딩페이지를 About으로 설정
+    }
+  };
+  
+  const [activeItem, setActiveItem] = useState<NavItem>(getInitialTab);
+
+  // activeItem이 바뀔 때 URL 쿼리 업데이트
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    params.set(
+      "tab",
+      activeItem === NavItem.ABOUT
+        ? "about"
+        : activeItem === NavItem.HISTORY
+        ? "history"
+        : "newsroom"
+    );
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, "", newUrl); // 페이지 새로고침 없이 URL만 변경
+  }, [activeItem]);
+
+  // 현재 activeItem에 따라 네비 아래 큰 타이틀 문자열 반환
   const getTitle = () => {
     switch (activeItem) {
       case NavItem.ABOUT:
@@ -28,6 +61,7 @@ export default function App() {
         return "";
     }
   };
+
   // 제목 아래 페이지 설명 반환
   const getDescription = () => {
     switch (activeItem) {
@@ -45,11 +79,8 @@ export default function App() {
     <div className="py-12 max-w-6xl mx-auto container">
       {/* Nav 탭메뉴 */}
       {/* activeItem: 현재 선택된 탭, onSelect: 탭 선택 시 상태 업데이트 */}
-      <NavigationPills activeItem={activeItem} onSelect={setActiveItem} />
-
-      {/* 활성화된 페이지 제목 */}
-      
-      
+      <SubNav activeItem={activeItem} onSelect={setActiveItem} />
+   
         <div ref={containerRef} style={{ position: "relative" }}>
           <VariableProximity
             label={getTitle()}
