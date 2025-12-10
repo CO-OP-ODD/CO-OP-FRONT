@@ -7,10 +7,11 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import { COMMON_PRODUCT_DETAILS } from "@/data/products";
 
 // COMMON_PRODUCT_DETAILS 타입 그대로 받아서 쓰는 컴포넌트
 type ProductDetailSpecsSectionProps = {
-  details: {
+  details?: {
     features: string[];
     keySpecs: { label: string; value: string }[];
     techSpecs: { label: string; value: string }[];
@@ -24,7 +25,7 @@ type ProductDetailSpecsSectionProps = {
 
 // 기능,주요 사양,기술 사양 섹션 전체를 담당하는 컴포넌트
 export default function ProductDetailSpecsSection({
-  details,
+  details = COMMON_PRODUCT_DETAILS,
 }: ProductDetailSpecsSectionProps) {
   // 비구조화 할당으로 필요한 데이터만 뽑아서 사용
   const { features, keySpecs, techDetailGroups } = details;

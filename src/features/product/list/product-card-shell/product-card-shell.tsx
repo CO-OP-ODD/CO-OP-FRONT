@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 type ProductCardShellProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   highlight?: boolean;
   to?: string; // 링크로 이동할 경로 (값이 있으면 카드 전체를 Link로 렌더링)
 };

@@ -11,20 +11,22 @@ import {
 } from "@/components/ui/breadcrumb";
 import { useNavigate } from "react-router-dom";
 import type { Product } from "@/data/products";
+import { PRODUCTS } from "@/data/products";
 import { useState } from "react";
 
 type ProductDetailHeroProps = {
-  product: Product;
+  product?: Product;
 };
 
 export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
+  const _product = product ?? PRODUCTS[0];
   const navigate = useNavigate();
 
   // 현재 보여줄 이미지 인덱스
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // 이미지의 길이 계산
-  const totalImages = product.images?.length ?? 0;
+  const totalImages = _product.images?.length ?? 0;
 
   // 다음이미지로 이동
   const handleNext = () => {
@@ -75,14 +77,14 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
                 transform: `translateX(-${currentIndex * 100}%)`,
               }}
             >
-              {product.images?.map((src, idx) => (
+                {_product.images?.map((src, idx) => (
                 <div
                   key={idx}
                   className="flex h-full w-full flex-shrink-0 items-center justify-center"
                 >
-                  <img
+                    <img
                     src={src}
-                    alt={`${product.name} - ${idx + 1}`}
+                    alt={`${_product.name} - ${idx + 1}`}
                     className={`
                       block
                       h-auto
@@ -163,7 +165,7 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
       >
         {/* 상단 브레드크럼 */}
         <div className="mb-4 md:mb-6 lg:mb-8">
-          <Breadcrumb>
+            <Breadcrumb>
             <BreadcrumbList className="text-[0.75rem] md:text-[0.875rem] text-[#8c8c95]">
               <BreadcrumbItem>
                 <BreadcrumbLink href="/" className="flex items-center">
@@ -180,7 +182,7 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
               <BreadcrumbSeparator className="mx-1">/</BreadcrumbSeparator>
 
               <BreadcrumbItem>
-                <BreadcrumbPage>{product.name}</BreadcrumbPage>
+                <BreadcrumbPage>{_product.name}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -188,7 +190,7 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
 
         {/* 상품명 / 품목번호 / 버튼 */}
         <header className="mb-8 md:mb-10 lg:mb-12">
-          <h1
+            <h1
             className={`
               mb-3 md:mb-4
               text-[1.875rem]  /* 30px */
@@ -198,7 +200,7 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
               leading-[1.2] md:leading-[1.1] lg:leading-[1.05]
             `}
           >
-            {product.name}
+            {_product.name}
           </h1>
 
           <p
@@ -260,7 +262,7 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
               tracking-[-0.03rem] lg:tracking-[-0.05rem]
             `}
           >
-            {product.name} 은 선명함, 편안함 및 신뢰성을 완벽하게 조합하여
+            {_product.name} 은 선명함, 편안함 및 신뢰성을 완벽하게 조합하여
             오늘날 음악 프로덕션의 모든 복잡한 작업을 처리할 수 있도 록
             제작되었습니다. 오픈백 디자인은 매우 넓고 입체적인 사운드 스테
             이지와 초정밀 사운드 재생을 가능하게 하여 오디오 사각지대를 없애 고
@@ -278,7 +280,7 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
               text-[#545252]
             `}
           >
-            {product.description}
+            {_product.description}
             내구성이 뛰어난 구성 요소와 가볍고 편안한 디자인 뿐만 아니라
             독일에서 수작업으로 제작된 HD 25 PRO는 헤드폰 착용을 잊고 음악을
             즐길 수 있게 해줍니다. 세심한 인체공학적 설계로 압박감을 없애고,

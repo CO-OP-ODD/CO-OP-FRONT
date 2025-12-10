@@ -4,15 +4,15 @@ type ProductDetailNavProps = {
   // * bottom → 화면 아래 붙어있는 상태 (fixed bottom)
   // * middle → 문서 흐름 안에 있는 상태 (static)
   // * top → 화면 상단에 붙어서 따라오는 상태 (fixed top)
-  navPosition: "bottom" | "middle" | "top";
+  navPosition?: "bottom" | "middle" | "top";
 
   // 각 탭 클릭 시 호출할 함수 (id로 타겟 섹션 이동)
-  scrollToSection: (id: string) => void;
+  scrollToSection?: (id: string) => void;
 };
 
 export default function ProductDetailNav({
-  navPosition,
-  scrollToSection,
+  navPosition = "bottom",
+  scrollToSection = () => {},
 }: ProductDetailNavProps) {
   return (
     <nav
