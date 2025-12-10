@@ -1,5 +1,3 @@
-// src/pages/ProductPagination.tsx
-
 import {
   Select,
   SelectContent,

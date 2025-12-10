@@ -1,5 +1,3 @@
-// ProductFilterBar.tsx
-
 import { IoMdSearch } from "react-icons/io";
 import {
   Select,

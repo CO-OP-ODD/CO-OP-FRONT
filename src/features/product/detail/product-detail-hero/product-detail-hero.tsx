@@ -1,4 +1,3 @@
-// src/components/product/ProductDetailHero.tsx
 import { IoMdHome } from "react-icons/io";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { Button } from "@/components/ui/button";
@@ -41,9 +40,34 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
   return (
     <>
       {/* 왼쪽영역 */}
-      <section className="min-h-screen bg-[#ECEBF0]">
-        <div className="sticky top-0 flex items-center justify-center">
-          <div className="relative flex h-[53.125rem] w-[59.5rem] max-w-full items-center justify-center overflow-hidden">
+      <section
+        className={`
+          bg-[#ECEBF0]
+          py-10
+          md:py-14
+          lg:py-0 lg:min-h-screen
+        `}
+      >
+        <div
+          className={`
+            mx-auto flex items-center justify-center
+            px-4
+            md:px-6
+            lg:px-0 lg:sticky lg:top-0 lg:h-screen
+          `}
+        >
+          <div
+            className={`
+              relative
+              w-full
+              max-w-[59.5rem]
+              h-auto
+              md:h-[34rem]
+              lg:h-auto
+              flex items-center justify-center
+              overflow-hidden
+            `}
+          >
             {/* 슬라이더 메인 이미지 => 이미지 여러 장을 가로로 나열하고 translateX로 밀기 */}
             <div
               className="flex h-full w-full transition-transform duration-500 ease-in-out"
@@ -59,14 +83,31 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
                   <img
                     src={src}
                     alt={`${product.name} - ${idx + 1}`}
-                    className="block h-auto w-[50%] object-contain"
+                    className={`
+                      block
+                      h-auto
+                      w-[50%]
+                      md:w-[35%]
+                      lg:w-[50%]
+                      object-contain
+                    `}
                   />
                 </div>
               ))}
             </div>
 
             {/* 우측 하단 페이지네이션 */}
-            <div className="absolute bottom-[2rem] right-10 flex items-center gap-4 text-[0.75rem] text-[#222] font-semibold">
+            <div
+              className={`
+                absolute
+                bottom-0 right-4
+                md:bottom-6 md:right-6
+                lg:bottom-0 lg:right-10
+                flex items-center gap-3
+                text-[0.75rem] md:text-[0.8rem]
+                text-[#222] font-semibold
+              `}
+            >
               <span>
                 {totalImages > 0
                   ? `${currentIndex + 1} / ${totalImages}`
@@ -77,18 +118,32 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
                 <button
                   type="button"
                   onClick={handlePrev}
-                  className="flex h-[3.375rem] w-[3.375rem] items-center justify-center rounded-full bg-[#f4f4f6] text-[#111] transition-colors duration-200 hover:bg-[#B70A09] hover:text-white"
+                  className={`
+                    flex items-center justify-center rounded-full
+                    bg-[#f4f4f6] text-[#111]
+                    transition-colors duration-200
+                    hover:bg-[#B70A09] hover:text-white
+                    h-10 w-10
+                    md:h-[3.375rem] md:w-[3.375rem]
+                  `}
                 >
-                  <IoIosArrowBack className="cursor-pointer text-[0.9rem] font-semibold" />
+                  <IoIosArrowBack className="cursor-pointer text-[0.85rem] md:text-[0.9rem] font-semibold" />
                 </button>
 
                 {/* 다음 버튼 */}
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="flex h-[3.375rem] w-[3.375rem] items-center justify-center rounded-full bg-[#f4f4f6] text-[#111] transition-colors duration-200 hover:bg-[#B70A09] hover:text-white"
+                  className={`
+                    flex items-center justify-center rounded-full
+                    bg-[#f4f4f6] text-[#111]
+                    transition-colors duration-200
+                    hover:bg-[#B70A09] hover:text-white
+                    h-10 w-10
+                    md:h-[3.375rem] md:w-[3.375rem]
+                  `}
                 >
-                  <IoIosArrowForward className="cursor-pointer text-[0.9rem] font-semibold" />
+                  <IoIosArrowForward className="cursor-pointer text-[0.85rem] md:text-[0.9rem] font-semibold" />
                 </button>
               </div>
             </div>
@@ -97,11 +152,19 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
       </section>
 
       {/* 오른쪽영역 */}
-      <section className="mt-[29.3rem] bg-white pl-6 pr-12 pt-[7.5rem]">
+      <section
+        className={`
+          bg-white
+          px-4 py-10
+          md:px-6 md:py-14
+          lg:pl-6 lg:pr-12 lg:pt-[7.5rem]
+          lg:mt-[29.3rem]
+        `}
+      >
         {/* 상단 브레드크럼 */}
-        <div className="mb-8">
+        <div className="mb-4 md:mb-6 lg:mb-8">
           <Breadcrumb>
-            <BreadcrumbList className="text-[0.875rem] text-[#8c8c95]">
+            <BreadcrumbList className="text-[0.75rem] md:text-[0.875rem] text-[#8c8c95]">
               <BreadcrumbItem>
                 <BreadcrumbLink href="/" className="flex items-center">
                   <IoMdHome size={14} />
@@ -124,25 +187,61 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
         </div>
 
         {/* 상품명 / 품목번호 / 버튼 */}
-        <header className="mb-12">
-          <h1 className="mb-4 text-[3.12rem] font-semibold leading-[1.05]">
+        <header className="mb-8 md:mb-10 lg:mb-12">
+          <h1
+            className={`
+              mb-3 md:mb-4
+              text-[1.875rem]  /* 30px */
+              md:text-[2.5rem]
+              lg:text-[3.12rem]
+              font-semibold
+              leading-[1.2] md:leading-[1.1] lg:leading-[1.05]
+            `}
+          >
             {product.name}
           </h1>
 
-          <p className="mb-6 text-[1.25rem] text-[#555865]">
+          <p
+            className={`
+              mb-4 md:mb-6
+              text-[0.95rem]
+              md:text-[1.05rem]
+              lg:text-[1.25rem]
+              text-[#555865]
+            `}
+          >
             품목 번호 <span className="font-medium text-[#111]">700286</span>
           </p>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 md:gap-3">
             <Button
               size="sm"
-              className="font-semibold shadow-none bg-[#f5f5f7] text-[#111] h-[3.375rem] rounded-full px-[1.125rem] text-xs transition-colors duration-200 hover:bg-[#B70A09] hover:text-white"
+              className={`
+                font-semibold shadow-none
+                bg-[#f5f5f7] text-[#111]
+                h-10 md:h-[3.375rem]
+                rounded-full
+                px-3 md:px-[1.125rem]
+                text-[0.7rem] md:text-xs
+                transition-colors duration-200
+                hover:bg-[#B70A09] hover:text-white
+              `}
               onClick={() => navigate("/products")}
             >
               제품군 전환
             </Button>
 
-            <button className="flex h-[3.375rem] w-[3.375rem] cursor-pointer items-center justify-center rounded-full bg-[#f5f5f7] text-xl transition-colors duration-200 hover:bg-[#B70A09] hover:text-white">
+            <button
+              className={`
+                flex cursor-pointer items-center justify-center rounded-full
+                bg-[#f5f5f7]
+                text-lg md:text-xl
+                transition-colors duration-200
+                hover:bg-[#B70A09] hover:text-white
+                h-10 w-10
+                md:h-[3.375rem] md:w-[3.375rem]
+              `}
+            >
               ★
             </button>
           </div>
@@ -150,7 +249,17 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
 
         {/* 메인 설명 */}
         <main>
-          <p className="mb-8 text-[2rem] font-medium leading-[1.5] tracking-[-0.05rem]">
+          <p
+            className={`
+              mb-6 md:mb-8
+              text-[1.25rem]
+              sm:text-[1rem]
+              lg:text-[2rem]
+              font-medium
+              leading-[1.6] md:leading-[1.55] lg:leading-[1.5]
+              tracking-[-0.03rem] lg:tracking-[-0.05rem]
+            `}
+          >
             {product.name} 은 선명함, 편안함 및 신뢰성을 완벽하게 조합하여
             오늘날 음악 프로덕션의 모든 복잡한 작업을 처리할 수 있도 록
             제작되었습니다. 오픈백 디자인은 매우 넓고 입체적인 사운드 스테
@@ -158,7 +267,17 @@ export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
             모든 디테일을 완벽하게 제어할 수 있게 해줍니다.
           </p>
 
-          <p className="mb-6 text-[1.25rem] leading-[1.8] tracking-[-0.05rem] text-[#545252]">
+          <p
+            className={`
+              mb-6
+              text-[0.95rem]
+              sm:text-[0.9rem]
+              lg:text-[1.25rem]
+              leading-[1.7] md:leading-[1.75] lg:leading-[1.8]
+              tracking-[-0.02rem] lg:tracking-[-0.05rem]
+              text-[#545252]
+            `}
+          >
             {product.description}
             내구성이 뛰어난 구성 요소와 가볍고 편안한 디자인 뿐만 아니라
             독일에서 수작업으로 제작된 HD 25 PRO는 헤드폰 착용을 잊고 음악을

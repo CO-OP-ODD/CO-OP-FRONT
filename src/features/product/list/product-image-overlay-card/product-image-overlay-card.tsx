@@ -1,5 +1,3 @@
-// src/pages/ProductImageOverlayCard.tsx
-
 import { cn } from "@/lib/utils";
 import type { Product } from "@/data/products";
 

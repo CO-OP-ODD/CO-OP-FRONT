@@ -1,9 +1,9 @@
-// src/pages/ProductDetailPage.tsx
 import { useParams } from "react-router-dom";
 
 import { PRODUCTS, COMMON_PRODUCT_DETAILS } from "@/data/products";
 import ProductExperienceSection from "@/features/product/shared/product-experience-section/product-experience-section";
 import ProductDetailHero from "@/features/product/detail/product-detail-hero/product-detail-hero";
+import TopControls from "@/components/ui/topcontrols";
 
 import { useEffect, useRef, useState } from "react";
 import ProductHeroSection from "@/features/product/shared/product-hero-section/product-hero-section";
@@ -71,6 +71,9 @@ export default function ProductDetailPage() {
 
   return (
     <div className="min-h-screen bg-white text-[#111]">
+      <div className="px-6">
+        <TopControls className="absolute right-[2rem] top-4 z-10" />
+      </div>
       {/* 좌/우 이미지,텍스트 한번에 담은 상품소개 컴포넌트 */}
       <div ref={gridRef} className="grid w-full lg:grid-cols-2">
         <ProductDetailHero product={product} />

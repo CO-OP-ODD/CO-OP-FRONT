@@ -1,5 +1,3 @@
-// src/data/products.ts
-
 // 각 기술 사양 분류 정의
 export type TechDetailGroup = {
   id: string;
@@ -258,8 +256,8 @@ export const PRODUCTS: Product[] = [
     thumbnail: "/images/product/img07_1.png",
     images: [
       "/images/product/img07_1.png",
-      "/images/product/img07_2.png",
       "/images/product/img07_3.png",
+      "/images/product/img07_1.png",
     ],
     description: "밸런스드 사운드 튜닝이 돋보이는 무선 헤드폰.",
     badges: ["Over-ear", "영상제작", "라이브프로덕션 및 투어"],
