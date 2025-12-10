@@ -32,7 +32,10 @@ export default function ProductDetailSpecsSection({
   return (
     <>
       {/* 기능 섹션 - 아코디언 */}
-      <section id="features" className="mx-auto max-w-full px-8 pt-16 pb-6">
+      <section
+        id="features"
+        className="mx-auto max-w-full px-8 pt-16 pb-6 scroll-mt-20"
+      >
         <Accordion type="multiple" className="w-full">
           <AccordionItem value="features">
             <AccordionTrigger className="text-left no-underline hover:no-underline [&>svg]:hidden">
@@ -50,7 +53,10 @@ export default function ProductDetailSpecsSection({
       </section>
 
       {/* 주요 사양 - 아코디언 */}
-      <section id="key-specs" className="mx-auto max-w-full px-8 pt-4 pb-6">
+      <section
+        id="key-specs"
+        className="mx-auto max-w-full px-8 pt-4 pb-6 scroll-mt-20"
+      >
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="key-specs">
             <AccordionTrigger className="text-left hover:no-underline [&>svg]:hidden">
@@ -85,7 +91,10 @@ export default function ProductDetailSpecsSection({
       </section>
 
       {/* 기술 사양 */}
-      <section id="tech-specs" className="mx-auto max-w-full px-8 pt-4 pb-20">
+      <section
+        id="tech-specs"
+        className="mx-auto max-w-full px-8 pt-4 pb-20 scroll-mt-20"
+      >
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="tech-specs">
             <AccordionTrigger className="text-left no-underline hover:no-underline [&>svg]:hidden">
