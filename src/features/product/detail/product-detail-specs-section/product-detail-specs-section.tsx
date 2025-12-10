@@ -23,9 +23,11 @@ type ProductDetailSpecsSectionProps = {
   };
 };
 
+// 기능,주요 사양,기술 사양 섹션 전체를 담당하는 컴포넌트
 export default function ProductDetailSpecsSection({
   details,
 }: ProductDetailSpecsSectionProps) {
+  // 비구조화 할당으로 필요한 데이터만 뽑아서 사용
   const { features, keySpecs, techDetailGroups } = details;
 
   return (
@@ -38,17 +40,11 @@ export default function ProductDetailSpecsSection({
               <h2 className="text-[3rem] font-semibold leading-[1.1]">기능</h2>
             </AccordionTrigger>
             <AccordionContent>
-              {features && features.length > 0 ? (
-                <ul className="mt-6 list-disc pl-6 text-[1.25rem] leading-[1.8]">
-                  {features.map((feature, idx) => (
-                    <li key={idx}>{feature}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="mt-4 text-base text-[#777]">
-                  기능 정보가 없습니다.
-                </p>
-              )}
+              <ul className="mt-6 list-disc pl-6 text-[1.25rem] leading-[1.8]">
+                {features.map((feature, idx) => (
+                  <li key={idx}>{feature}</li>
+                ))}
+              </ul>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
@@ -70,6 +66,7 @@ export default function ProductDetailSpecsSection({
                   <div
                     key={idx}
                     className={cn(
+                      //className들을 깔끔하게 합치는 유틸 함수.
                       "grid w-full grid-cols-[1.5fr_2fr] items-center px-4 py-4 text-left",
                       "cursor-pointer transition-colors duration-150",
                       "hover:bg-[#B70A09] hover:text-white last:border-none"

@@ -9,12 +9,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+// 컴포넌트가 받을 props 타입 정의
 type ProductPaginationProps = {
   page: number;
   perPage: number;
-  onPerPageChange: (value: number) => void;
+  onPerPageChange: (value: number) => void; // perPage 변경 시 부모에게 알려주는 콜백 함수 (부모인 ProductPage 컴포넌트가 정의한 콜백 함수)
 };
 
+// 위에서 선언한 타입들 함수 실행
 export default function ProductPagination({
   page,
   perPage,
@@ -32,7 +34,12 @@ export default function ProductPagination({
         <span className="text-muted-foreground">페이지당 상품 수</span>
         <Select
           value={String(perPage)}
-          onValueChange={(v) => onPerPageChange(Number(v))}
+          onValueChange={(v) => onPerPageChange(Number(v))} // v => Select 컴포넌트가 넘겨주는 실제 값, v값을 부모로 전달함(매개변수)
+          // Select → onValueChange → 받아온 값(v)
+          //              ↓
+          //   (v) => onPerPageChange(Number(v))
+          //              ↓
+          //      부모에게 숫자로 전달
         >
           <SelectTrigger className="w-[60px] rounded-2xl">
             <SelectValue placeholder="12" />

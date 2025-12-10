@@ -2,8 +2,11 @@
 import { cn } from "@/lib/utils";
 
 type ProductDetailNavProps = {
-  // 스크롤 위치에 따라 bottom / middle / top 상태
+  // * bottom → 화면 아래 붙어있는 상태 (fixed bottom)
+  // * middle → 문서 흐름 안에 있는 상태 (static)
+  // * top → 화면 상단에 붙어서 따라오는 상태 (fixed top)
   navPosition: "bottom" | "middle" | "top";
+
   // 각 탭 클릭 시 호출할 함수 (id로 타겟 섹션 이동)
   scrollToSection: (id: string) => void;
 };
@@ -16,9 +19,7 @@ export default function ProductDetailNav({
     <nav
       className={cn(
         "z-20 w-full border-t border-[#e5e5ea] bg-white transition-all duration-300",
-
         navPosition === "bottom" && "fixed bottom-0 left-0",
-        // middle 단계 — position 제거하고 문서 흐름 그대로 따라가게 함
         navPosition === "middle" && "static",
         navPosition === "top" && "fixed top-0 left-0"
       )}

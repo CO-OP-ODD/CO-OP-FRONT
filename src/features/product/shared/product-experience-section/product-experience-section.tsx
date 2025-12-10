@@ -3,7 +3,7 @@
 export default function ProductExperienceSection() {
   return (
     <section className="bg-white">
-      <div className="mx-auto w-[117.5rem] h-[39.0625rem] px-4 pt-10 md:px-0">
+      <div className="mx-auto w-full h-[39.0625rem] px-4 pt-10 md:px-0">
         <div className="grid overflow-hidden rounded-none md:grid-cols-2 h-full">
           {/* 왼쪽 텍스트 박스 */}
           <div className="flex h-full flex-col justify-left bg-[#f3f3f5] px-[2rem] py-[2rem]">
@@ -44,7 +44,7 @@ export default function ProductExperienceSection() {
       </div>
 
       {/* 하단 텍스트 & 버튼 */}
-      <div className="mx-auto w-[117.5rem] px-4 pb-14 pt-12">
+      <div className="mx-auto w-full px-4 pb-14 pt-12">
         <p className="text-[1.8rem] font-bold leading-relaxed tracking-[-0.03em] text-right">
           젠하이저는 품질과 관리에 최선을 다합니다. 그래서 연장 보증 프로그램인
           <br />
