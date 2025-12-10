@@ -2,35 +2,67 @@ import type {NavRoute} from "@/types";
 
 export const navigation: NavRoute[] = [
     {
-        href: "/",
-        title: "Home"
-    },
-    {
-        href: "/about",
-        title: "About"
-    },
-    {
-        href: "/shop",
-        title: "Shop",
-        items:[
+        href: "/products",
+        title: "Products",
+        items: [
             {
-                href: "/shop/product-1",
-                title: "product-1",
-            }
-        ]
-    },
-    {
-        href: "/privacy-policy",
-        title: "Privacy",
-        items:[
-            {
-                href: "/privacy-policy/history",
-                title: "History",
+                href: "/products/headset",
+                title: "Headset",
             },
             {
-                href: "/privacy-policy/contact",
-                title: "Contact"
+                href: "/products/wireless",
+                title: "Wireless",
+            },
+            {
+                href: "/products/software",
+                title: "Software",
             }
         ]
     },
+    {
+        href: "/app",
+        title: "Application",
+        items: [
+            {
+                href: "/app/live",
+                title: "Live",
+            },
+            {
+                href: "/app/studio-recording",
+                title: "StudioRecording",
+            },
+            {
+                href: "/app/meeting",
+                title: "Meeting",
+            }
+        ]
+    },
+    {
+        href: "/story",
+        title: "Story",
+        items: [
+            {
+                href: "/story/customers",
+                title: "Customers",
+            },
+            {
+                href: "/story/pro-talks",
+                title: "Pro Talks"
+            }
+        ]
+    },
+    {
+        href: "/support",
+        title: "Support",
+        items: [
+            {
+                href: "/support/qna",
+                title: "Qna",
+            }
+        ]
+    },
+    {
+        href: "/company",
+        title: "Company"
+    }
 ]

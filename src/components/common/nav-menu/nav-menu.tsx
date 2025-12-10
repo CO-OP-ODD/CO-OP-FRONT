@@ -1,21 +1,25 @@
 import React from 'react';
 import {
     NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuTrigger, navigationMenuTriggerStyle,
-    NavigationMenuViewport,
+    navigationMenuTriggerStyle,
 
 } from "@components/ui/navigation-menu"
-import {cn} from "@/lib/utils.ts";
+import {cn} from "@lib/utils.ts";
 import type {NavRoute} from "@/types";
 import {Link} from "react-router-dom";
 import {navigation} from "@/data";
 import {LogoLink} from "@components/common/nav-menu/logo-link/logo-link.tsx";
 import {cva} from "class-variance-authority";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuTrigger
+} from "@components/ui/dropdown-menu.tsx";
 
 
 export const NavMenu = () => {
@@ -38,8 +42,9 @@ export const NavMenu = () => {
         const isActive = activeSection === singleItemParam.href;
         return (
             <NavigationMenuItem key={`${singleItemParam.href}-${singleItemParam.title}`}>
-                <NavigationMenuLink asChild className={cn("rounded-full")}>
+                <NavigationMenuLink asChild className={cn("")}>
                     <Link
+
                         key={singleItemParam.href}
                         to={singleItemParam.href}
                         title={singleItemParam.title}
@@ -47,7 +52,8 @@ export const NavMenu = () => {
                             setActiveSection(singleItemParam.href);
                         }}
                         // if this item set into active
-                        className={cn(navigationSingleMenuStyle(), isActive && "bg-accent text-accent-foreground")}
+                        className={cn(navigationSingleMenuStyle(), "rounded-full" ,isActive && "bg-accent" +
+                            " text-accent-foreground")}
                     >
                         {singleItemParam.title}
                     </Link>
@@ -61,69 +67,63 @@ export const NavMenu = () => {
         return (
             <NavigationMenuItem key={`${multipleMenu.href}-${multipleMenu.title}`}>
                 {/* this is trigger button: need styling */}
+                <DropdownMenu>
+                    <DropdownMenuTrigger className={cn(navigationMenuTriggerStyle(), "px-6 bg-white box-border py-1.5 rounded-full", )}>{multipleMenu.title}</DropdownMenuTrigger>
+                    <DropdownMenuContent className={cn("w-fit")} align="start">
+                        <DropdownMenuGroup>
+                            {multipleMenu.items?.map((subItem) => {
+                                return (
+                                    <DropdownMenuItem>
+                                        {subItem.title}
+                                    </DropdownMenuItem>
+                                )
+                            })}
+                        </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </NavigationMenuItem>
+        )}
 
-
-                    <DropdownMenu
-                    <ul className={cn("")}>
-                        {multipleMenu.items?.map((subitem) => {
-                            // link active check
-                            const isActive = activeSection === subitem.href;
-                            return (
-                                <li key={`${subitem.href}-${subitem.title}`}>
+        return (
+                <div className={cn("flex justify-around")}>
+                    <NavigationMenu className={cn("")}>
+                        <NavigationMenuList className={cn(" py-2 flex justify-center")}>
+                            <LogoLink className={cn(" py-2")}/>
+                            {
+                                navigation.map((menuItem) => {
+                                    if (menuItem.items === undefined) {
+                                        return renderSingleMenu(menuItem)
+                                    } else {
+                                        return renderDepthMenu(menuItem)
+                                    }
+                                })
+                            }
+                            {/* right sight login area */}
+                            <div className={cn("ml-auto flex gap-1")}>
+                                <NavigationMenuItem>
                                     <NavigationMenuLink asChild>
                                         <Link
-                                            to={subitem.href}
-                                            onClick={() => {
-                                            }} // need Link onClick event
-                                            // if current menu activated set styles
-                                            className={cn(navigationMenuTriggerStyle(), isActive && "bg-accent text-accent-foreground")}
+                                            to="/login"
+                                            className={cn(navigationSingleMenuStyle(), "rounded-full")}
                                         >
-                                            {subitem.title}
+                                            Login
                                         </Link>
                                     </NavigationMenuLink>
-                                </li>
-                            )
-                        })}
-                    </ul>
+                                </NavigationMenuItem>
 
-
-
+                                <NavigationMenuItem>
+                                    <NavigationMenuLink asChild>
+                                        <Link
+                                            to="/login"
+                                            className={cn(navigationSingleMenuStyle(), "rounded-full p-")}
+                                        >
+                                            help
+                                        </Link>
+                                    </NavigationMenuLink>
+                                </NavigationMenuItem>
+                            </div>
+                        </NavigationMenuList>
+                    </NavigationMenu>
+                </div>
         )
     }
-
-
-    return (
-        <header className={cn("w-full relative")}>
-            <div className={cn(" page-container flex justify-between")}>
-                <NavigationMenu className={cn("w-full")}>
-                    <NavigationMenuList className={cn("")}>
-                        <LogoLink className={cn("rounded-full", navigationSingleMenuStyle())}/>
-                        {
-                            navigation.map((menuItem) => {
-                                if (menuItem.items === undefined) {
-                                    return renderSingleMenu(menuItem)
-                                } else {
-                                    return renderDepthMenu(menuItem)
-                                }
-                            })
-                        }
-                        {/* right sight login area */}
-                        <div className={cn("ml-auto flex gap-1")}>
-                            <NavigationMenuItem>
-                                <NavigationMenuLink asChild>
-                                    <Link
-                                        to="/login"
-                                        className={cn(navigationSingleMenuStyle())}
-                                    >
-                                        Login
-                                    </Link>
-                                </NavigationMenuLink>
-                            </NavigationMenuItem>
-                        </div>
-                    </NavigationMenuList>
-                    <NavigationMenuViewport/>
-                </NavigationMenu>
-            </div>
-        </header>
-    )
-}
