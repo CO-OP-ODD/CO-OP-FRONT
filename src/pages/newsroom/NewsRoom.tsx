@@ -10,9 +10,9 @@ export default function NewsRoom() {
       <div className="grid grid-cols-[3fr_2fr] gap-8 mb-32 items-end">
         <AnimatedContent duration={1.2}>
           {/* Hero Image */}
-          <div className="w-full bg-gray-200 aspect-[4/3] lg:aspect-[16/10] relative">
+          <div className="w-full bg-gray-200 aspect-[4/3] lg:aspect-[16/10] relative overflow-hidden ">
             <img
-              className="w-full object-cover overflow-hidden"
+              className="w-full object-cover origin-center h-full"
               src={news01}
               alt="뉴스메인"
             />
@@ -42,7 +42,7 @@ export default function NewsRoom() {
       </div>
 
       {/* News Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-16 overflow-hidden">
         {/*  NEWS_ITEMS 배열을 순회 */}
 
         {NEWS_ITEMS.map((item, i) => (
@@ -51,7 +51,7 @@ export default function NewsRoom() {
             {/* 한 열에서 순차적으로*/}
             <article className="flex flex-col group cursor-pointer">
               <div className="w-full mb-6 relative">
-                <div className="w-full aspect-[4/3] bg-gray-200 transform transition duration-300 group-hover:scale-105 group-hover:shadow-lg origin-center">
+                <div className="w-full aspect-[4/3] transform transition duration-300 group-hover:scale-x-105 group-hover:scale-y-100 origin-center">
                   {/* Image */}
                     <img
                       className="w-full h-full object-cover"
