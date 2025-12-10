@@ -1,12 +1,11 @@
 import { NavItem } from "./navItems";
 
-
-interface NavigationPillsProps {
+interface SubNavProps {
   activeItem: NavItem; // 현재 활성화된 네비게이션 아이템
   onSelect: (item: NavItem) => void; // 아이템 선택 시 호출되는 콜백 함수
 }
 
-export const NavigationPills = ({ activeItem, onSelect }: NavigationPillsProps) =>{
+export const SubNav = ({ activeItem, onSelect }: SubNavProps) =>{
   // 표시할 네비게이션 탭 목록
   const items = [NavItem.ABOUT, NavItem.HISTORY, NavItem.NEWSROOM];
 

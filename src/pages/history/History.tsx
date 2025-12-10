@@ -41,7 +41,7 @@ export const HistoryItem = ({ item, delay, forceVisible }: HistoryItemProps) => 
               <img
                 src={item.imageUrl}
                 alt={item.title}
-                className="w-full h-full object-cover hover:grayscale-0 transition-all duration-500"
+                className="w-full h-full object-cover transition-all duration-500"
                 loading="lazy"
               />
             )}
