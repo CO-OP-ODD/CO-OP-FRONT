@@ -1,5 +1,3 @@
-// src/pages/ProductCardShell.tsx
-
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 

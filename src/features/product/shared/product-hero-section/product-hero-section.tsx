@@ -3,7 +3,7 @@ export default function ProductHeroSection() {
     <section className="w-full bg-white pb-[4rem] pt-[7rem]">
       {/* 상단 타이틀 */}
       <div className="mx-auto w-full px-[1rem] text-center">
-        <h2 className="text-[1.75rem] md:text-[2rem] font-bold leading-relaxed tracking-[-0.02em] mb-[7rem]">
+        <h2 className="text-[1.75rem] md:text-[1.5rem] xs:text-[1.3rem] font-bold leading-relaxed tracking-[-0.02em] mb-[7rem]">
           수십 년의 역사를 거슬러 올라가 청취의 미래를 재정의하는 헤드폰 경험.
           <br />
           가능성은 수도 없이 많고 매순간 몰입감이 넘칩니다.
@@ -16,7 +16,7 @@ export default function ProductHeroSection() {
           className="flex items-center justify-center bg-[#ECEBF0] mt-40"
           style={{
             width: "38.6875rem",
-            height: "37.625rem",
+            height: "auto",
           }}
         >
           <img
@@ -31,7 +31,7 @@ export default function ProductHeroSection() {
           className="flex flex-col items-center"
           style={{
             width: "26.25rem",
-            height: "40.8125rem",
+            height: "auto",
           }}
         >
           <div>

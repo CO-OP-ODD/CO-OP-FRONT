@@ -1,10 +1,8 @@
-// src/components/ProductExperienceSection.tsx
-
 export default function ProductExperienceSection() {
   return (
     <section className="bg-white">
-      <div className="mx-auto w-full h-[39.0625rem] px-4 pt-10 md:px-0">
-        <div className="grid overflow-hidden rounded-none md:grid-cols-2 h-full">
+      <div className="mx-auto w-full h-auto px-4 pt-10 md:px-0">
+        <div className="grid overflow-hidden rounded-none md:grid-cols-2 h-full max-md:flex max-md:flex-col-reverse">
           {/* 왼쪽 텍스트 박스 */}
           <div className="flex h-full flex-col justify-left bg-[#f3f3f5] px-[2rem] py-[2rem]">
             <div>

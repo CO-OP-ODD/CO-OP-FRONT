@@ -1,4 +1,3 @@
-// src/pages/ProductDetailNav.tsx
 import { cn } from "@/lib/utils";
 
 type ProductDetailNavProps = {
