@@ -15,11 +15,14 @@ import {
   type Category,
 } from "@/data/productFilterConstants.ts";
 
+// 컴포넌트가 받을 props 타입 정의 (부모 컴포넌트가 넘겨주는 2개의 값만 구조분해)
+// ProductFilterBarProps => props의 타입을 TypeScript로 보장
 type ProductFilterBarProps = {
-  selectedCategory: Category;
-  onCategoryChange: (category: Category) => void;
+  selectedCategory: Category; // 현재 활성화된 카테고리 값 (선택된 카테고리)
+  onCategoryChange: (category: Category) => void; // 필터 버튼 클릭 시 실행되는 콜백 (사용자가 카테고리 버튼 클릭했을 때 실행할 함수)
 };
 
+// 위에서 정의한 함수들을 실행
 export default function ProductFilterBar({
   selectedCategory,
   onCategoryChange,

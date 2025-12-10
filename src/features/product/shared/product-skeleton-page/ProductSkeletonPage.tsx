@@ -20,6 +20,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
+// 실제 필터 UI와 동일한 카테고리 목록
 const categoryFilters = [
   "전체",
   "적용유형",
@@ -29,12 +30,15 @@ const categoryFilters = [
 ] as const;
 
 export default function ProductSkeletonPage() {
+  // 페이지 이동을 위한 React Router 훅
   const navigate = useNavigate();
 
+  //페이지 로드 후 2초 뒤에 실제 /products 페이지로 자동 이동
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate("/products", { replace: true });
+      navigate("/products", { replace: true }); // replace: true → 히스토리 스택에 현재 페이지를 남기지 않고 대체 (뒤로 가기 눌렀을 때 스켈레톤 페이지로 안 돌아가게 하려고)
     }, 2000);
+    // cleanup: 컴포넌트가 언마운트되면 타이머 제거
     return () => clearTimeout(timer);
   }, [navigate]);
 
@@ -83,7 +87,7 @@ export default function ProductSkeletonPage() {
             <IoMdSearch className="text-[#ccc]" size="1.1em" />
           </button>
 
-          {/* 카테고리 버튼 스켈레톤 */}
+          {/* 카테고리 버튼 */}
           {categoryFilters.map((label, idx) => (
             <button
               key={label}
@@ -94,15 +98,12 @@ export default function ProductSkeletonPage() {
               )}
             >
               <Skeleton
-                className={cn(
-                  "h-3 w-12 rounded-full",
-                  idx === 0 && "w-10" // '전체'는 조금 더 짧게
-                )}
+                className={cn("h-3 w-12 rounded-full", idx === 0 && "w-10")}
               />
             </button>
           ))}
 
-          {/* 정렬 기준 - 오른쪽 끝 ml-auto 구조 같게 */}
+          {/* 정렬 기준 */}
           <div className="ml-auto">
             <Select>
               <SelectTrigger className="w-[100px] rounded-full">
@@ -118,9 +119,10 @@ export default function ProductSkeletonPage() {
           </div>
         </section>
 
-        {/* 상단 메인 - 같은 grid 구조 + highlight 카드 느낌만 스켈레톤으로 */}
+        {/* 상단 메인 */}
         <section>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* 길이가 3인 배열, 12인 배열을 만들어서 렌더링 */}
             {Array.from({ length: 3 }).map((_, index) => (
               <div
                 key={index}
@@ -135,7 +137,7 @@ export default function ProductSkeletonPage() {
           </div>
         </section>
 
-        {/* 하단 상품 영역 - 클래스 그대로 복사 */}
+        {/* 하단 상품 영역 */}
         <section className="space-y-3">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 12 }).map((_, i) => (
@@ -149,7 +151,7 @@ export default function ProductSkeletonPage() {
           </div>
         </section>
 
-        {/* 페이지네이션 - ProductPage와 동일 구조 */}
+        {/* 페이지네이션 */}
         <div className="product-pagination flex flex-col items-center gap-8 py-10">
           <button className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-medium">
             1

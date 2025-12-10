@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { useNavigate } from "react-router-dom";
 import type { Product } from "@/data/products";
+import { useState } from "react";
 
 type ProductDetailHeroProps = {
   product: Product;
@@ -20,29 +21,75 @@ type ProductDetailHeroProps = {
 export default function ProductDetailHero({ product }: ProductDetailHeroProps) {
   const navigate = useNavigate();
 
+  // 현재 보여줄 이미지 인덱스
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // 이미지의 길이 계산
+  const totalImages = product.images?.length ?? 0;
+
+  // 다음이미지로 이동
+  const handleNext = () => {
+    if (!totalImages) return;
+    setCurrentIndex((prev) => (prev + 1) % totalImages);
+  };
+  // 이전이미지로 이동
+  const handlePrev = () => {
+    if (!totalImages) return;
+    setCurrentIndex((prev) => (prev - 1 + totalImages) % totalImages);
+  };
+
   return (
     <>
       {/* 왼쪽영역 */}
       <section className="min-h-screen bg-[#ECEBF0]">
         <div className="sticky top-0 flex items-center justify-center">
-          <div className="relative flex h-[53.125rem] w-[59.5rem] max-w-full items-center justify-center">
-            <img
-              src={product.thumbnail}
-              alt={product.name}
-              className="block h-auto w-[50%] object-contain"
-            />
+          <div className="relative flex h-[53.125rem] w-[59.5rem] max-w-full items-center justify-center overflow-hidden">
+            {/* 슬라이더 메인 이미지 => 이미지 여러 장을 가로로 나열하고 translateX로 밀기 */}
+            <div
+              className="flex h-full w-full transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(-${currentIndex * 100}%)`,
+              }}
+            >
+              {product.images?.map((src, idx) => (
+                <div
+                  key={idx}
+                  className="flex h-full w-full flex-shrink-0 items-center justify-center"
+                >
+                  <img
+                    src={src}
+                    alt={`${product.name} - ${idx + 1}`}
+                    className="block h-auto w-[50%] object-contain"
+                  />
+                </div>
+              ))}
+            </div>
 
             {/* 우측 하단 페이지네이션 */}
             <div className="absolute bottom-[2rem] right-10 flex items-center gap-4 text-[0.75rem] text-[#222] font-semibold">
-              <span>1 / 6</span>
+              <span>
+                {totalImages > 0
+                  ? `${currentIndex + 1} / ${totalImages}`
+                  : `- / -`}
+              </span>
               <div className="flex gap-2">
-                <div className="bg-[#f4f4f6] text-[#111] flex h-[3.375rem] w-[3.375rem] items-center justify-center rounded-full transition-colors duration-200 hover:bg-[#B70A09] hover:text-white">
-                  <IoIosArrowBack className="font-semibold cursor-pointer text-[0.9rem]" />
-                </div>
+                {/* 이전 버튼 */}
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  className="flex h-[3.375rem] w-[3.375rem] items-center justify-center rounded-full bg-[#f4f4f6] text-[#111] transition-colors duration-200 hover:bg-[#B70A09] hover:text-white"
+                >
+                  <IoIosArrowBack className="cursor-pointer text-[0.9rem] font-semibold" />
+                </button>
 
-                <div className="bg-[#f4f4f6] text-[#111] flex h-[3.375rem] w-[3.375rem] items-center justify-center rounded-full transition-colors duration-200 hover:bg-[#B70A09] hover:text-white">
-                  <IoIosArrowForward className="font-semibold cursor-pointer text-[0.9rem]" />
-                </div>
+                {/* 다음 버튼 */}
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="flex h-[3.375rem] w-[3.375rem] items-center justify-center rounded-full bg-[#f4f4f6] text-[#111] transition-colors duration-200 hover:bg-[#B70A09] hover:text-white"
+                >
+                  <IoIosArrowForward className="cursor-pointer text-[0.9rem] font-semibold" />
+                </button>
               </div>
             </div>
           </div>

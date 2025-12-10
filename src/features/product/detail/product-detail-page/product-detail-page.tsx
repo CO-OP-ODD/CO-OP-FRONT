@@ -17,7 +17,11 @@ export default function ProductDetailPage() {
   // 상품 데이터들중에서 현재 id와 같은 상품 찾기 못 찾으면 첫 번째 상품으로 이동
   const product = PRODUCTS.find((p) => String(p.id) === id) ?? PRODUCTS[0];
 
-  // 특정 섹션으로 스크롤 이동 함수
+  /** 특정 섹션으로 스크롤 이동시키는 함수
+    - ProductDetailNav에서 버튼 클릭 시 이 함수를 호출함
+    - id는 "features" | "key-specs" | "tech-specs" 등
+    - 해당 id를 가진 DOM 요소를 찾아서 scrollIntoView로 부드럽게 이동
+   */
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -26,6 +30,7 @@ export default function ProductDetailPage() {
   };
 
   // sticky 네비게이션 위치 상태 관리
+  //ProductDetailNav 컴포넌트에서 이 값을 받아서 nav의 위치 bottom / static / top 으로 바꿔 줌
   const [navPosition, setNavPosition] = useState<"bottom" | "middle" | "top">(
     "bottom"
   );
@@ -37,11 +42,11 @@ export default function ProductDetailPage() {
     window.scrollTo(0, 0);
 
     const handleScroll = () => {
-      const gridEl = gridRef.current;
+      const gridEl = gridRef.current; // ref를 통해 <div ref={gridRef}>...</div> 를 가져옴
       if (!gridEl) return;
 
-      const rect = gridEl.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
+      const rect = gridEl.getBoundingClientRect(); // DOM 요소가 현재 화면(뷰포트) 안에서 어디 위치해 있는지 측정하는 메소드
+      const viewportHeight = window.innerHeight; //브라우저 화면(뷰포트)의 높이계산
 
       // 1) 아직 grid의 하단이 화면 하단보다 아래에 있을 때 navbar는 화면 아래에 붙어 있는 상태 유지
       if (rect.bottom > viewportHeight) {

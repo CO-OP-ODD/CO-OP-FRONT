@@ -13,6 +13,7 @@ export type Product = {
   category: string;
   price: number;
   thumbnail: string;
+  images: string[];
   description: string;
   badges?: string[];
 
@@ -165,9 +166,14 @@ export const PRODUCTS: Product[] = [
     category: "적용유형",
     price: 129000,
     thumbnail: "/images/product/img01_1.png",
+    images: [
+      "/images/product/img01_1.png",
+      "/images/product/img01_2.png",
+      "/images/product/img01_3.png",
+    ],
     description: "전문가용 모니터링 헤드폰으로 정확한 사운드를 제공합니다.",
     badges: ["On-ear", "3.5 mm", "6.3 mm", "Broadcast", "Film making"],
-    ...COMMON_PRODUCT_DETAILS, // ✅ 한 번에 모든 상세 데이터 적용
+    ...COMMON_PRODUCT_DETAILS, // 한 번에 모든 상세 데이터 적용
   },
   {
     id: 2,
@@ -175,9 +181,14 @@ export const PRODUCTS: Product[] = [
     category: "착용방식",
     price: 159000,
     thumbnail: "/images/product/img02_1.png",
+    images: [
+      "/images/product/img02_1.png",
+      "/images/product/img02_2.png",
+      "/images/product/img02_3.png",
+    ],
     description: "편안한 착용감과 안정적인 무선 연결을 지원합니다.",
     badges: ["Over-ear", "Bluetooth", "ANC"],
-    ...COMMON_PRODUCT_DETAILS, // ✅
+    ...COMMON_PRODUCT_DETAILS,
   },
   {
     id: 3,
@@ -185,9 +196,14 @@ export const PRODUCTS: Product[] = [
     category: "Connectors",
     price: 89000,
     thumbnail: "/images/product/img03_1.png",
+    images: [
+      "/images/product/img03_1.png",
+      "/images/product/img03_2.png",
+      "/images/product/img03_3.png",
+    ],
     description: "USB-C 연결을 통해 안정적인 사운드를 제공합니다.",
     badges: ["Over-ear", "Bluetooth", "ANC"],
-    ...COMMON_PRODUCT_DETAILS, // ✅
+    ...COMMON_PRODUCT_DETAILS,
   },
   {
     id: 4,
@@ -195,9 +211,14 @@ export const PRODUCTS: Product[] = [
     category: "오디오소스",
     price: 139000,
     thumbnail: "/images/product/img04.png",
+    images: [
+      "/images/product/img04.png",
+      "/images/product/img04.png",
+      "/images/product/img04.png",
+    ],
     description: "게이머를 위한 서라운드 사운드 지원.",
     badges: ["Over-ear", "영상제작", "라이브프로덕션 및 투어", "3.5 mm"],
-    ...COMMON_PRODUCT_DETAILS, // ✅
+    ...COMMON_PRODUCT_DETAILS,
   },
   {
     id: 5,
@@ -205,9 +226,14 @@ export const PRODUCTS: Product[] = [
     category: "적용유형",
     price: 199000,
     thumbnail: "/images/product/img05_1.png",
+    images: [
+      "/images/product/img05_1.png",
+      "/images/product/img05_2.png",
+      "/images/product/img05_3.png",
+    ],
     description: "고성능 스튜디오 녹음 환경을 위해 설계되었습니다.",
     badges: ["On-ear", "3.5 mm", "6.3 mm", "방송", "보컬"],
-    ...COMMON_PRODUCT_DETAILS, // ✅
+    ...COMMON_PRODUCT_DETAILS,
   },
   {
     id: 6,
@@ -215,9 +241,14 @@ export const PRODUCTS: Product[] = [
     category: "착용방식",
     price: 69000,
     thumbnail: "/images/product/img06_1.png",
+    images: [
+      "/images/product/img06_1.png",
+      "/images/product/img06_1.png",
+      "/images/product/img06_1.png",
+    ],
     description: "가벼운 무게로 이동하며 듣기에 최적화.",
     badges: ["Over-ear", "영상제작", "라이브프로덕션 및 투어"],
-    ...COMMON_PRODUCT_DETAILS, // ✅
+    ...COMMON_PRODUCT_DETAILS,
   },
   {
     id: 7,
@@ -225,9 +256,14 @@ export const PRODUCTS: Product[] = [
     category: "오디오소스",
     price: 119000,
     thumbnail: "/images/product/img07_1.png",
+    images: [
+      "/images/product/img07_1.png",
+      "/images/product/img07_2.png",
+      "/images/product/img07_3.png",
+    ],
     description: "밸런스드 사운드 튜닝이 돋보이는 무선 헤드폰.",
     badges: ["Over-ear", "영상제작", "라이브프로덕션 및 투어"],
-    ...COMMON_PRODUCT_DETAILS, // ✅
+    ...COMMON_PRODUCT_DETAILS,
   },
   {
     id: 8,
@@ -235,9 +271,14 @@ export const PRODUCTS: Product[] = [
     category: "적용유형",
     price: 249000,
     thumbnail: "/images/product/img08_1.png",
+    images: [
+      "/images/product/img08_1.png",
+      "/images/product/img08_2.png",
+      "/images/product/img08_3.png",
+    ],
     description: "음향 엔지니어가 선호하는 레퍼런스 모델.",
     badges: ["Over-ear", "영상제작", "라이브프로덕션 및 투어", "Bluetooth"],
-    ...COMMON_PRODUCT_DETAILS, // ✅
+    ...COMMON_PRODUCT_DETAILS,
   },
   {
     id: 9,
@@ -245,9 +286,14 @@ export const PRODUCTS: Product[] = [
     category: "오디오소스",
     price: 149000,
     thumbnail: "/images/product/img01_1.png",
+    images: [
+      "/images/product/img01_1.png",
+      "/images/product/img01_2.png",
+      "/images/product/img01_3.png",
+    ],
     description: "저음 강화 튜닝으로 DJ 환경에 적합.",
     badges: ["Bluetooth", "영상제작", "라이브프로덕션 및 투어", "3.5 mm"],
-    ...COMMON_PRODUCT_DETAILS, // ✅
+    ...COMMON_PRODUCT_DETAILS,
   },
   {
     id: 10,
@@ -255,9 +301,14 @@ export const PRODUCTS: Product[] = [
     category: "착용방식",
     price: 199000,
     thumbnail: "/images/product/img02_1.png",
+    images: [
+      "/images/product/img02_1.png",
+      "/images/product/img02_2.png",
+      "/images/product/img02_3.png",
+    ],
     description: "최신 ANC 기술로 소음을 효과적으로 차단.",
     badges: ["Over-ear", "영상제작", "라이브프로덕션 및 투어"],
-    ...COMMON_PRODUCT_DETAILS, // ✅
+    ...COMMON_PRODUCT_DETAILS,
   },
   {
     id: 11,
@@ -265,9 +316,14 @@ export const PRODUCTS: Product[] = [
     category: "Connectors",
     price: 129000,
     thumbnail: "/images/product/img03_1.png",
+    images: [
+      "/images/product/img03_1.png",
+      "/images/product/img03_2.png",
+      "/images/product/img03_3.png",
+    ],
     description: "고품질 케이블과 연결 인터페이스 제공.",
     badges: ["보컬", "영상제작", "라이브프로덕션 및 투어"],
-    ...COMMON_PRODUCT_DETAILS, // ✅
+    ...COMMON_PRODUCT_DETAILS,
   },
   {
     id: 12,
@@ -275,8 +331,13 @@ export const PRODUCTS: Product[] = [
     category: "적용유형",
     price: 59000,
     thumbnail: "/images/product/img04.png",
+    images: [
+      "/images/product/img04.png",
+      "/images/product/img04.png",
+      "/images/product/img04.png",
+    ],
     description: "컴팩트한 디자인의 휴대용 헤드폰.",
     badges: ["Over-ear", "Bluetooth", "영상제작", "6.3 mm"],
-    ...COMMON_PRODUCT_DETAILS, // ✅
+    ...COMMON_PRODUCT_DETAILS,
   },
 ];
