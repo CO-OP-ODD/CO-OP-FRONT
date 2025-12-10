@@ -4,10 +4,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { PRODUCTS } from "@/data/products";
-import ProductBreadcrumbs from "./ProductBreadcrumbs";
-import ProductFilterBar from "./ProductFilterBar";
-import ProductGridSection from "./ProductGridSection";
-import ProductPagination from "./ProductPagination";
+import ProductBreadcrumbs from "../product-breadcrumbs/product-breadcrumbs";
+import ProductFilterBar from "../product-filter-bar/product-filter-bar";
+import ProductGridSection from "../product-grid-section/product-grid-section";
+import ProductPagination from "../product-pagination/product-pagination";
 import type { Category } from "@/data/productFilterConstants";
 
 gsap.registerPlugin(ScrollTrigger);

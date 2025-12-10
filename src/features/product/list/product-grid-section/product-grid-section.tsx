@@ -1,8 +1,8 @@
 // src/pages/ProductGridSection.tsx
 
 import type { Product } from "@/data/products";
-import ProductCardShell from "./ProductCardShell";
-import ProductImageOverlayCard from "./ProductImageOverlayCard";
+import ProductCardShell from "../product-card-shell/product-card-shell";
+import ProductImageOverlayCard from "../product-image-overlay-card/product-image-overlay-card";
 
 type ProductGridSectionProps = {
   topProducts: Product[];

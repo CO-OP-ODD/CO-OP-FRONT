@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ProductSkeletonPage from "@/pages/product/shared/ProductSkeletonPage";
-import ProductPage from "@/pages/product/list/ProductPage";
-import ProductDetailPage from "./pages/product/detail/ProductDetailPage";
+import ProductSkeletonPage from "@/features/product/shared/product-skeleton-page/ProductSkeletonPage";
+import ProductPage from "@/features/product/list/product-page/product-page";
+import ProductDetailPage from "@/features/product/detail/product-detail-page/product-detail-page";
 
 export default function App() {
   return (
