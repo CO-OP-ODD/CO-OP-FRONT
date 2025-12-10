@@ -2,13 +2,13 @@
 import { useParams } from "react-router-dom";
 
 import { PRODUCTS, COMMON_PRODUCT_DETAILS } from "@/data/products";
-import ProductExperienceSection from "@/pages/product/shared/ProductExperienceSection";
-import ProductDetailHero from "@/pages/product/detail/ProductDetailHero";
+import ProductExperienceSection from "@/features/product/shared/product-experience-section/product-experience-section";
+import ProductDetailHero from "@/features/product/detail/product-detail-hero/product-detail-hero";
 
 import { useEffect, useRef, useState } from "react";
-import ProductHeroSection from "@/pages/product/shared/ProductHeroSection";
-import ProductDetailNav from "@/pages/product/detail/ProductDetailNav";
-import ProductDetailSpecsSection from "@/pages/product/detail/ProductDetailSpecsSection";
+import ProductHeroSection from "@/features/product/shared/product-hero-section/product-hero-section";
+import ProductDetailNav from "@/features/product/detail/product-detail-nav/product-detail-nav";
+import ProductDetailSpecsSection from "@/features/product/detail/product-detail-specs-section/product-detail-specs-section";
 
 export default function ProductDetailPage() {
   // URL 파라미터로부터 id 값 가져오기 (상품 인덱스 번호)
