@@ -5,6 +5,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.page-container {
+  @include mixins.responsive-container;
+  @include mixins.resize-root-padding;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
