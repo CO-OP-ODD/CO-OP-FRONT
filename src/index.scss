@@ -1,25 +1,6 @@
-@use "./variables" as vars;
-@use "./mixins" as mixins;
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.page-container{
-  @include mixins.responsive-container;
-  // @include mixins.resize-root-padding;
-
-  // debug
-}
-
-[data-radix-navigation-menu-viewport] {
-  transform-origin: top center;
-  position: relative;
-  margin-top: 10px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
 
 @layer base {
   :root {

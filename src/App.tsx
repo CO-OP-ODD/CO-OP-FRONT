@@ -1,13 +1,12 @@
-;import { RouterProvider} from "react-router-dom";
-import './App.scss';
-import router from "@/router";
-
-
+import './App.scss'
+import {SignupForm} from "@/components/template/signup-form";
 
 function App() {
 
   return (
-      <RouterProvider router={router} />
+    <>
+      <SignupForm/>
+    </>
   )
 }
 
