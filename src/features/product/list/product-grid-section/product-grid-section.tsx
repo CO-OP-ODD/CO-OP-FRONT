@@ -28,7 +28,7 @@ export default function ProductGridSection({
               key={p.id}
               // 첫 번째 카드만 highlight (보통 lg에서만 2x2 크게 처리해두었을 거야)
               highlight={index === 0}
-              to={`/products/${p.id}`}
+              to={`/product/${p.id}`}
             >
               <ProductImageOverlayCard product={p} />
             </ProductCardShell>
@@ -40,7 +40,7 @@ export default function ProductGridSection({
       <section className="space-y-3">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {gridProducts.map((p) => (
-            <ProductCardShell key={p.id} to={`/products/${p.id}`}>
+            <ProductCardShell key={p.id} to={`/product/${p.id}`}>
               <ProductImageOverlayCard product={p} />
             </ProductCardShell>
           ))}
