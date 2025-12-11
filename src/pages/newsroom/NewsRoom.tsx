@@ -7,10 +7,10 @@ export default function NewsRoom() {
     // 상단 Hero 섹션 + 뉴스 카드 리스트로 구성
     <div className="py-12 font-sans text-gray-900">
       {/* Hero 섹션 전체*/}
-      <div className="grid grid-cols-[3fr_2fr] gap-8 mb-32 items-end">
+      <div className="grid lg:grid-cols-[3fr_2fr] md:grid-cols-1 gap-8 mb-32 items-end">
         <AnimatedContent duration={1.2}>
           {/* Hero Image */}
-          <div className="w-full bg-gray-200 aspect-[4/3] lg:aspect-[16/10] relative overflow-hidden ">
+          <div className="w-full aspect-[4/3] lg:aspect-[16/10] relative overflow-hidden ">
             <img
               className="w-full object-cover origin-center h-full"
               src={news01}
@@ -22,7 +22,7 @@ export default function NewsRoom() {
         <AnimatedContent duration={1.2} delay={0.2}>
           {/* Hero Content */}
           <div className="flex flex-col justify-end ">
-            <h2 className="text-xl font-bold mb-7 tracking-tight">
+            <h2 className="text-lg font-bold mb-7 tracking-tight">
               젠하이저, 칠레 텔레톤 2025 음향의 핵심 역할 담당
             </h2>
             <p className="text-gray-600 text-sm leading-normal mb-6">
