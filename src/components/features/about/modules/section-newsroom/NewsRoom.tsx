@@ -7,10 +7,10 @@ export default function NewsRoom() {
     // 상단 Hero 섹션 + 뉴스 카드 리스트로 구성
     <div className="py-12 font-sans text-gray-900">
       {/* Hero 섹션 전체*/}
-      <div className="grid grid-cols-[3fr_2fr] gap-8 mb-32 items-end">
+      <div className="grid grid-cols-[3fr_2fr] md:grid-cols-1 gap-8 mb-32 items-end">
         <AnimatedContent duration={1.2}>
           {/* Hero Image */}
-          <div className="w-full bg-gray-200 aspect-[4/3] lg:aspect-[16/10] relative overflow-hidden ">
+          <div className="w-full aspect-[4/3] lg:aspect-[16/10] relative overflow-hidden ">
             <img
               className="w-full object-cover origin-center h-full"
               src={news01}

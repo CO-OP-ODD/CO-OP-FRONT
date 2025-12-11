@@ -75,7 +75,7 @@ export default function Company() {
     }
   };
   return (
-    <div className="py-12 max-w-6xl mx-auto container">
+    <div className="py-12 sm:w-[70%] mx-auto container">
       {/* Nav 탭메뉴 */}
       {/* activeItem: 현재 선택된 탭, onSelect: 탭 선택 시 상태 업데이트 */}
       <SubNav activeItem={activeItem} onSelect={setActiveItem} />

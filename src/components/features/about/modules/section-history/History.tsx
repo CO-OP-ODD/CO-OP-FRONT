@@ -22,7 +22,7 @@ export const HistoryItem = ({ item, delay, forceVisible }: HistoryItemProps) => 
       initialOpacity={forceVisible ? 1 : 0}
       animateOpacity
     >
-      <div className="flex flex-col md:flex-row gap-4 py-12 border-b border-gray-400">
+      <div className="flex flex-col lg:flex-row md:flex-col gap-4 py-12 border-b border-gray-400">
         
         {/* Year */}
         <AnimatedContent distance={20} duration={0.8} delay={0.1} >
@@ -35,7 +35,7 @@ export const HistoryItem = ({ item, delay, forceVisible }: HistoryItemProps) => 
 
         {/* Image */}
         <AnimatedContent distance={20} duration={0.9} delay={0.25}>
-        <div className="w-full md:w-[320px] flex-shrink-0">
+        <div className="w-full lg:w-[320px] flex-shrink-0">
           <div className="aspect-[3/2] w-full bg-gray-200 overflow-hidden">
             {item.imageUrl && (
               <img
@@ -51,7 +51,7 @@ export const HistoryItem = ({ item, delay, forceVisible }: HistoryItemProps) => 
 
         {/* Text Column */}
         <AnimatedContent distance={20} duration={1.0} delay={0.35} className="flex">
-        <div className="flex-1 pt-2 flex flex-col ml-12 flex justify-end">
+        <div className="flex-1 pt-2 flex flex-col lg:ml-12 md:ml-0 flex justify-end">
           <h3 className="font-semibold mb-3">{item.title}</h3>
           <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
             {item.description}
