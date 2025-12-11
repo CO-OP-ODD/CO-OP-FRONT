@@ -1,14 +1,17 @@
-;import { RouterProvider} from "react-router-dom";
-import './App.scss';
-import router from "@/router";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ProductSkeletonPage from "@/features/product/shared/product-skeleton-page/ProductSkeletonPage.tsx";
+import ProductPage from "@/features/product/list/product-page/product-page.tsx";
 
-
-
-function App() {
-
+export default function App() {
   return (
-      <RouterProvider router={router} />
-  )
-}
+    <Router>
+      <Routes>
+        {/* 처음 접속하면 스켈레톤 페이지 */}
+        <Route path="/" element={<ProductSkeletonPage />} />
 
-export default App
+        {/* 실제 상품 페이지 */}
+        <Route path="/products" element={<ProductPage />} />
+      </Routes>
+    </Router>
+  );
+}
