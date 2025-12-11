@@ -1,6 +1,6 @@
 
 import AnimatedContent from "@/components/reactbits/AnimatedContent";
-import {ABOUT_ITEMS} from '../../../../../data/about/aboutItems';
+import {ABOUT_ITEMS} from '@/data/about/aboutItems';
 import Folder from "@/components/reactbits/Folder";
 
 export default function AboutUs() {
