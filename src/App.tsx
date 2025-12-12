@@ -1,18 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ProductSkeletonPage from "@/pages/product/shared/ProductSkeletonPage";
-import ProductPage from "@/pages/product/list/ProductPage";
-import ProductDetailPage from "./pages/product/detail/ProductDetailPage";
+import { RouterProvider} from "react-router-dom";
+import router from "@/router";
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        {/* 처음 접속하면 스켈레톤 페이지 */}
-        <Route path="/" element={<ProductSkeletonPage />} />
-
-        {/* 실제 상품 페이지 */}
-        <Route path="/products" element={<ProductPage />} />
-      </Routes>
-    </Router>
+      <RouterProvider router={router} />
   );
 }

@@ -1,33 +1,44 @@
 import {createBrowserRouter} from "react-router-dom";
 import DefaultLayout from "@/layout/default-layout.tsx";
 import {Hero} from "@/pages/hero/hero.tsx";
-import {About} from "@components/features/about/about.tsx";
-import {Product} from "@/pages/product/product";
 import {ProductDetail} from "@/pages/product/product-detail";
+import ProductPage from "@/features/product/list/product-page/product-page.tsx";
+import Company from "@/pages/company/company.tsx";
+
+const productPageLoader = async () => {
+    return new Promise(resolve => {
+        setTimeout(()=>{
+            resolve(null)
+        }, 1500)
+    })
+}
 
 const router = createBrowserRouter([
     {
         // parent router
         path: "/",
         element: <DefaultLayout/>, // (capital c)
+
         children: [
             {
                 // children router
                 index: true,
-                element: <Hero />
+                element: <Hero />,
             },
             {
-                path: "/about",
-                element: <About />,
-            },
-            {
-                path: "/product",
-                element: <Product />,
+                path: "/company",
+                element: <Company />,
             },
             {
                 path: "/product/:id",
                 element: <ProductDetail />,
             },
+            {
+                path: "/product",
+                element: <ProductPage />,
+                loader: productPageLoader
+            },
+
         ]
     }
 ])

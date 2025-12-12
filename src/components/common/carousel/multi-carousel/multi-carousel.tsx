@@ -1,6 +1,7 @@
 import React from "react";
 import {Carousel, CarouselContent, CarouselItem} from "@components/ui/carousel.tsx";
 import {cn} from "@lib/utils.ts";
+import "./styles/index.scss";
 // use generic function
 
 // the render result defend by callback function
@@ -30,7 +31,8 @@ export const MultiCarousel = <T, >(
                     {items.map((item, i) => {
                         return (
                             // TODO: modify flex items arrange
-                            <CarouselItem key={i} className={cn("basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/4" +
+                            <CarouselItem key={i} className={cn(" card basis-1/2 sm:basis-1/3 md:basis-1/4" +
+                                " lg:basis-1/4" +
                                 " xl:basis-1/4" +
                                 " aspect-square" +
                                 " pl-0")}>

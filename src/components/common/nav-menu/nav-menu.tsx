@@ -74,7 +74,9 @@ export const NavMenu = () => {
                             {multipleMenu.items?.map((subItem) => {
                                 return (
                                     <DropdownMenuItem>
-                                        {subItem.title}
+                                        <Link to={subItem.href}>
+                                            {subItem.title}
+                                        </Link>
                                     </DropdownMenuItem>
                                 )
                             })}

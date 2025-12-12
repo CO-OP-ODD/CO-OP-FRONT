@@ -2,19 +2,19 @@ import type {NavRoute} from "@/types";
 
 export const navigation: NavRoute[] = [
     {
-        href: "/products",
-        title: "Products",
+        href: "/product",
+        title: "Product",
         items: [
             {
-                href: "/products/headset",
+                href: "/product/",
                 title: "Headset",
             },
             {
-                href: "/products/wireless",
+                href: "/product/",
                 title: "Wireless",
             },
             {
-                href: "/products/software",
+                href: "/product/",
                 title: "Software",
             }
         ]
