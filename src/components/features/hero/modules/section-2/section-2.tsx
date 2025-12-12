@@ -1,14 +1,9 @@
 import {cn} from "@lib/utils.ts";
-import {Card} from "@components/ui/card.tsx";
-import {typography} from "@styles/tailwind-variations";
-import {PreviewItem} from "@components/features/hero/card/products/preview/preview.tsx";
-import {Link} from "react-router-dom";
-import {MdArrowRight} from "react-icons/md";
-import {type Product, PRODUCTS} from "@data/hero/products";
+import {type Product, PRODUCTS} from "@data/products.ts";
 import {MultiCarousel} from "@components/common/carousel/multi-carousel/multi-carousel.tsx";
-import {Separator} from "@components/ui/separator.tsx";
 import {Headline} from "@components/common/headline/headline.tsx";
-import React from "react";
+import ProductCardShell from "@/features/product/list/product-card-shell/product-card-shell.tsx";
+import ProductImageOverlayCard from "@/features/product/list/product-image-overlay-card/product-image-overlay-card.tsx";
 
 export const Section2 = () => {
 
@@ -16,14 +11,12 @@ export const Section2 = () => {
     // render preset items
     const items = PRODUCTS.slice(0,7);
 
+
     const renderItem = (item:Product) => {
         return(
-            <PreviewItem
-                className={"p-0"}
-                imgUrl={item.thumbnail}
-                name={item.name}
-                tags={item.badges}
-            />
+            <ProductCardShell key={item.id} to={`/product/${item.id}`}>
+                <ProductImageOverlayCard product={item} />
+            </ProductCardShell>
         )
     }
 

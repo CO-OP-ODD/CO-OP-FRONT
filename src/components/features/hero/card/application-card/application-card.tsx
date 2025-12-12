@@ -38,7 +38,7 @@ export const ApplicationCard = (
                         backgroundPosition: "center",
                     }}
                 >
-                    <div className={cn("w-full flex justify-end pt-12 backdrop-blur-sm pb-4 pr-2")}>
+                    <div className={cn("w-full flex justify-end pt-12 pb-4 pr-2")}>
                         <Button className={cn("transition-all hover:bg-red-700")}>
                             Learn More
                         </Button>
