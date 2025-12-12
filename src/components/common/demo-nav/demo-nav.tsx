@@ -35,7 +35,7 @@ const menuSections = [
 const ExampleNavMenu = () => (
     <div className="pr-[50vw] pb-[50vh]">
         <div className="w-full max-w-md rounded-md border bg-background p-px">
-            <NavigationMenu viewport={false}>
+            <NavigationMenu >
                 <NavigationMenuList>
                     {menuSections.map((section, index) => (
                         <NavigationMenuItem key={index}>
