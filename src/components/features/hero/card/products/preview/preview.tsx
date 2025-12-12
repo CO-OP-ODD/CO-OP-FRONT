@@ -2,7 +2,6 @@ import {cn} from "@lib/utils.ts";
 import {Card, CardContent} from "@components/ui/card.tsx";
 import type {TypeProduct} from "@/types";
 import {typography} from "@styles/tailwind-variations";
-import {Badge} from "@components/ui/badge.tsx";
 
 interface PreviewItemProps extends TypeProduct{
     className?: string;
@@ -12,7 +11,6 @@ interface PreviewItemProps extends TypeProduct{
 export const PreviewItem = (
     {
         name,
-        tags,
         imgUrl,
         className
     }:PreviewItemProps
